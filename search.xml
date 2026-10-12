@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>C语言-数据类型</title>
+      <link href="/2026/10/11/C%E8%AF%AD%E8%A8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
+      <url>/2026/10/11/C%E8%AF%AD%E8%A8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="数据类型的作用"><a class="markdownIt-Anchor" href="#数据类型的作用"></a> 数据类型的作用</h2><p>1.决定变量之中内存储什么类型的数据<br />2.决定一个变量的空间大小(如<code>int</code>类型，就是四个字节)</p><h2 id="数据类型的种类"><a class="markdownIt-Anchor" href="#数据类型的种类"></a> 数据类型的种类</h2><h3 id="整数"><a class="markdownIt-Anchor" href="#整数"></a> 整数</h3><table><thead><tr><th>数据类型</th><th>占用大小</th></tr></thead><tbody><tr><td>short</td><td>2</td></tr><tr><td>int(默认类型)</td><td>4</td></tr><tr><td>long</td><td>在32位内是4<br>在64位内是8</td></tr><tr><td>long long(在C99才有)</td><td>8</td></tr></tbody></table><p>不同数据类型取值范围由编译器决定，可以用<code>sizeof</code>来确定，但都遵循short&lt;=int&lt;=long&lt;=long long<br />变量数据类型定义和关键字<code>sizeof</code>运用演示:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line">int <span class="function"><span class="title">main</span></span>()&#123;</span><br><span class="line">  //1.数据类型的定义</span><br><span class="line">  //short 短整型 占用2字节</span><br><span class="line">  short a = 10;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,a);</span><br><span class="line"></span><br><span class="line">  //int 整形 占用4字节</span><br><span class="line">  int b = 10;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,b);</span><br><span class="line"></span><br><span class="line">  //long 长整型 windows占用8字节，linux占用4字节 需要特殊格式</span><br><span class="line">  long c = 10L;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%ld\n&quot;</span>, c);</span><br><span class="line"></span><br><span class="line">  //long long 超长整型 占用8字节 需要在C99才有 需要特殊格式</span><br><span class="line">  //long long d = 10LL;</span><br><span class="line">  //printf(<span class="string">&quot;%lld&quot;</span>,d)</span><br><span class="line">  //2.sizeof的运用</span><br><span class="line">  //可以填写变量，可以填写数据类型</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%zu&quot;</span>,sizeof(short));</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%zu&quot;</span>,sizeof(a));</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>对出现的<code>%zu</code>的解释:<br /><code>%zu</code> 是专门用来打印 <code>sizeof</code> 结果和 <code>size_t</code> 变量的占位符<br />拆解，<code>z</code>代表的是 <code>size_t</code> 类型,<code>u</code>代表的是无符号的十进制整数<br />简单理解,%zu就是专门用在输出sizeof数据的格式化占位符</p><h3 id="变量定义的完整形式"><a class="markdownIt-Anchor" href="#变量定义的完整形式"></a> 变量定义的完整形式</h3><h4 id="变量类型后加int"><a class="markdownIt-Anchor" href="#变量类型后加int"></a> 变量类型后加int</h4><p>对于有些人，会习惯在定义<code>short</code>、<code>long</code>和<code>long long</code>类型的变量时会在其后加个<code>int</code><br />这是完整的定义数据类型的格式，但不加<code>int</code>在C语言中也是允许的，但是<code>int</code>类型就不能再加<code>int</code>代码示例如下</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">short a = 10;</span><br><span class="line">short int b = 20;</span><br></pre></td></tr></table></figure><h4 id="有符号与无符号整数"><a class="markdownIt-Anchor" href="#有符号与无符号整数"></a> 有符号与无符号整数</h4><p>关键字signed定义有符号整数，指正负数（默认情况）<br />关键字unsigned定义无符号整数，仅指整数<br />代码示例如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">signed int a = -10;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,a);</span><br><span class="line"></span><br><span class="line">//如果输入负数，则数据会出错</span><br><span class="line">//注意，如果用unsigned定义变量，占位符要用%u</span><br><span class="line">unsigned int b = 10;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%u&quot;</span>,b);</span><br></pre></td></tr></table></figure><h3 id="浮点型小数"><a class="markdownIt-Anchor" href="#浮点型小数"></a> 浮点型/小数</h3><table><thead><tr><th>数据类型</th><th>占用大小</th></tr></thead><tbody><tr><td>float</td><td>4</td></tr><tr><td>double(默认)</td><td>8</td></tr><tr><td>long double(不常用)</td><td>16</td></tr></tbody></table><p>注意 小数不能和<code>unsigned</code>组合使用</p><p>代码演示:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//需要在数据后加<span class="string">&quot;F&quot;</span></span><br><span class="line">  <span class="built_in">float</span> e = 3.14F;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%f\n&quot;</span>,e);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%.2f\n&quot;</span>,e);</span><br><span class="line"></span><br><span class="line">//由于是默认类型，不需要额外加</span><br><span class="line">  double f = 3.14;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%lf\n&quot;</span>,f);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%.2lf\n&quot;</span>,f);</span><br><span class="line"></span><br><span class="line">//需要在数据后加<span class="string">&quot;L&quot;</span></span><br><span class="line">  long double g = 3.14L;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%Lf\n&quot;</span>,g);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%.2Lf\n&quot;</span>,g);</span><br></pre></td></tr></table></figure><p>占位符<code>%.2Lf</code>前面的<code>.2</code>是指精确到小数点后两位</p><h3 id="字符"><a class="markdownIt-Anchor" href="#字符"></a> 字符</h3><p>|数据类型|取值范围|占用大小|<br />|--------|-------|<br />|char|ASCII表内所有内容，即英文字母，英文标点符号和数字|1|</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C语言-进制</title>
+      <link href="/2026/10/11/C%E8%AF%AD%E8%A8%80-%E8%BF%9B%E5%88%B6/"/>
+      <url>/2026/10/11/C%E8%AF%AD%E8%A8%80-%E8%BF%9B%E5%88%B6/</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2><p>目前常见有二进制，十进制，八进制和十六进制<br />二进制指的是逢二进一，十进制指的是逢十进一，八进制指的是逢八进一<br />生活中常用的进制是十进制，如十进制的3在二进制中就是11，十进制中的13在八进制中就是15<br />十六进制与上同理。</p><h2 id="在代码中的运用"><a class="markdownIt-Anchor" href="#在代码中的运用"></a> 在代码中的运用</h2><p>二进制 需要在数字前加’0b’，<br />十进制 什么都不用加<br />八进制 需要在数字前加’0’，<br />十六进制 需要在数字前加’0x’<br />代码示例:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line">int <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">  int a = 0b11; //二进制</span><br><span class="line">  int b = 10;   //十进制</span><br><span class="line">  int c = 056;  //八进制</span><br><span class="line">  int d = 0xaf; //十六进制</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;a:%d,b:%d,c:%d,d:%d&quot;</span>,a,b,c,d); //使用占位符%d,使变量内容以十进制内容展示</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C语言-占位符</title>
+      <link href="/2026/10/11/C%E8%AF%AD%E8%A8%80-%E5%8D%A0%E4%BD%8D%E7%AC%A6/"/>
+      <url>/2026/10/11/C%E8%AF%AD%E8%A8%80-%E5%8D%A0%E4%BD%8D%E7%AC%A6/</url>
+      
+        <content type="html"><![CDATA[<p>C语言 printf / scanf 占位符速查表</p><h2 id="一-整数类型"><a class="markdownIt-Anchor" href="#一-整数类型"></a> 一、整数类型</h2><table><thead><tr><th>占位符</th><th>释义</th><th>用途</th></tr></thead><tbody><tr><td>%d</td><td>有符号十进制整数 (int)</td><td>printf/scanf</td></tr><tr><td>%i</td><td>有符号十进制整数 (int)</td><td>printf/scanf</td></tr><tr><td>%u</td><td>无符号十进制整数 (unsigned)</td><td>printf/scanf</td></tr><tr><td>%o</td><td>八进制整数</td><td>printf/scanf</td></tr><tr><td>%x</td><td>十六进制整数(小写)</td><td>printf/scanf</td></tr><tr><td>%X</td><td>十六进制整数(大写)</td><td>printf</td></tr><tr><td>%hd</td><td>short</td><td>printf/scanf</td></tr><tr><td>%hhd</td><td>signed char</td><td>printf/scanf</td></tr><tr><td>%ld</td><td>long</td><td>printf/scanf</td></tr><tr><td>%lld</td><td>long long</td><td>printf/scanf</td></tr><tr><td>%lu</td><td>无符号 long</td><td>printf/scanf</td></tr><tr><td>%llu</td><td>无符号 long long</td><td>printf/scanf</td></tr></tbody></table><h2 id="二-浮点类型"><a class="markdownIt-Anchor" href="#二-浮点类型"></a> 二、浮点类型</h2><table><thead><tr><th>占位符</th><th>释义</th><th>用途</th></tr></thead><tbody><tr><td>%f</td><td>float / double (默认6位小数)</td><td>printf: float/double 都用</td></tr><tr><td>%lf</td><td>double</td><td>scanf 输入 double 必须用</td></tr><tr><td>%Lf</td><td>long double</td><td>printf/scanf</td></tr><tr><td>%e</td><td>科学计数法(小写e)</td><td>printf/scanf</td></tr><tr><td>%E</td><td>科学计数法(大写E)</td><td>printf</td></tr><tr><td>%g</td><td>自动选 %f 或 %e 较短者</td><td>printf/scanf</td></tr><tr><td>%G</td><td>自动选 %f 或 %E 较短者</td><td>printf</td></tr><tr><td>%a</td><td>十六进制浮点数(小写)</td><td>printf</td></tr><tr><td>%A</td><td>十六进制浮点数(大写)</td><td>printf</td></tr></tbody></table><h2 id="三-字符与字符串"><a class="markdownIt-Anchor" href="#三-字符与字符串"></a> 三、字符与字符串</h2><table><thead><tr><th>占位符</th><th>释义</th><th>用途</th></tr></thead><tbody><tr><td>%c</td><td>单个字符 (char)</td><td>printf/scanf</td></tr><tr><td>%s</td><td>字符串 (char数组/指针)</td><td>printf/scanf</td></tr></tbody></table><h2 id="四-指针"><a class="markdownIt-Anchor" href="#四-指针"></a> 四、指针</h2><table><thead><tr><th>占位符</th><th>释义</th><th>用途</th></tr></thead><tbody><tr><td>%p</td><td>指针地址(十六进制)</td><td>printf/scanf</td></tr></tbody></table><h2 id="五-其他"><a class="markdownIt-Anchor" href="#五-其他"></a> 五、其他</h2><table><thead><tr><th>占位符</th><th>释义</th><th>用途</th></tr></thead><tbody><tr><td>%%</td><td>输出一个百分号 %</td><td>printf</td></tr><tr><td>%n</td><td>已输出字符数写入参数(慎用)</td><td>printf</td></tr></tbody></table><h2 id="六-格式修饰符加在-和字母之间"><a class="markdownIt-Anchor" href="#六-格式修饰符加在-和字母之间"></a> 六、格式修饰符(加在 % 和字母之间)</h2><table><thead><tr><th>占位符</th><th>释义</th></tr></thead><tbody><tr><td>%5d</td><td>宽度5，右对齐</td></tr><tr><td>%-5d</td><td>宽度5，左对齐</td></tr><tr><td>%05d</td><td>宽度5，用0填充</td></tr><tr><td>%+d</td><td>强制显示正负号</td></tr><tr><td>%.2f</td><td>保留2位小数</td></tr><tr><td>%8.3f</td><td>总宽8，保留3位小数</td></tr><tr><td>%*d</td><td>宽度由参数指定</td></tr><tr><td>%-8.3f</td><td>左对齐，总宽8，保留3位小数</td></tr></tbody></table><h2 id="七-printf-与-scanf-关键区别"><a class="markdownIt-Anchor" href="#七-printf-与-scanf-关键区别"></a> 七、printf 与 scanf 关键区别</h2><ol><li>printf 输出 float 和 double 都用 %f</li><li>scanf 输入 float 用 %f，double 必须用 %lf</li><li>scanf 中变量前要加 &amp; (数组名除外)</li><li>scanf 的 %c 会读取空白字符，注意缓冲区</li></ol><p>示例：<br />printf(“%05d\n”, 42);        // 00042<br />printf(“%-6s|\n”, “abc”);    // abc   |<br />printf(“%.2f\n”, 3.14159);   // 3.14<br />printf(“%8.3f\n”, 3.14159);  //    3.142</p><p>float a;  double b;<br />scanf(“%f”, &amp;a);    // float<br />scanf(“%lf”, &amp;b);   // double</p><p>速记口诀：<br />整数 d i u o x X<br />浮点 f e g a<br />字符 c 字符串 s<br />指针 p 百分号 %%</p><p>以上内容来源于deepseek</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C语言-函数printf</title>
+      <link href="/2026/10/11/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0printf/"/>
+      <url>/2026/10/11/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0printf/</url>
+      
+        <content type="html"><![CDATA[<h2 id="printf"><a class="markdownIt-Anchor" href="#printf"></a> printf</h2><p>printf函数位于头文件&lt;stdio.h&gt;内，是将内容打印至终端的函数<br />普通用法:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[string]&quot;</span>);</span><br></pre></td></tr></table></figure><p>可以用占位符%s格式化输出</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,varname)</span><br></pre></td></tr></table></figure><p>占位符有:<a href="/2026/10/11/C%E8%AF%AD%E8%A8%80-%E5%8D%A0%E4%BD%8D%E7%AC%A6/" title="C语言-占位符">C语言-占位符</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>计算机存储机制</title>
+      <link href="/2026/10/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B6/"/>
+      <url>/2026/10/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B6/</url>
+      
+        <content type="html"><![CDATA[<h2 id="计算机存储机制"><a class="markdownIt-Anchor" href="#计算机存储机制"></a> 计算机存储机制</h2><p>也就是二进制，由0和1组成</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机原理 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C语言-IDE的使用与疑难</title>
+      <link href="/2026/10/09/C%E8%AF%AD%E8%A8%80-IDE%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%96%91%E9%9A%BE/"/>
+      <url>/2026/10/09/C%E8%AF%AD%E8%A8%80-IDE%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%96%91%E9%9A%BE/</url>
+      
+        <content type="html"><![CDATA[<h2 id="dev-c"><a class="markdownIt-Anchor" href="#dev-c"></a> Dev-C++</h2><p>作为老牌的且专属于C++集成工具,常见于竞赛项目的代码编写,但如果Win11系统对软件进行了缩放处理,该软件的UI将会模糊.</p><h3 id="ui模糊"><a class="markdownIt-Anchor" href="#ui模糊"></a> UI模糊</h3><h4 id="方法一"><a class="markdownIt-Anchor" href="#方法一"></a> 方法一</h4><p>我们可以直接将系统的缩放改回正常的100%缩放↓<br /><strong>右键桌面空白处→显示设置→缩放与布局→缩放</strong></p><h4 id="方法二推荐"><a class="markdownIt-Anchor" href="#方法二推荐"></a> 方法二(推荐)</h4><p>我们可以通过启动程序时的兼容性设置，使得系统在<strong>保留缩放设置</strong>的前提下修复软件UI界面模糊的问题↓<br /><strong>右键桌面的快捷方式→打开文件位置→找到应用程序本体→右键.exe文件→属性→兼容性→设置内的更改高DPI设置→勾选“程序DPI”内的“使用此设置修复此程序的缩放问题······”以及将“程序DPI”内的“执行以下操作时使用为我的······”切换为打开此程序→勾选“高PDI缩放替代”内的“替代高DPI缩放行为”,将“缩放执行”设置为“应用程序”</strong><br />以下是示例图片<br /><img src="https://cdn.jsdelivr.net/gh/DimMeteor/Dim-picture/picgo/Dev-C%2B%2B_compressed%20(2).png" alt="示例图片" title="Dev-C++" /></p><h3 id="编译运行代码快捷键"><a class="markdownIt-Anchor" href="#编译运行代码快捷键"></a> 编译+运行代码快捷键</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+F5</span><br></pre></td></tr></table></figure><h2 id="vs-code"><a class="markdownIt-Anchor" href="#vs-code"></a> VS code</h2><p>这是一个文本编辑器,是蓝色图标的,<img src="https://cdn.jsdelivr.net/gh/DimMeteor/Dim-picture/picgo/vscode.ico" class="[vscode图标]" width="30" height="30"></p><h3 id="c语言环境配置"><a class="markdownIt-Anchor" href="#c语言环境配置"></a> C语言环境配置</h3><p>正常来讲，他只是一个<strong>高级版的记事本</strong>,不支持直接进行代码编译与程序运行，但是我们可以通过安装社区内的插件，来让我们的VScode成为支持C语言编程的集成工具↓<br /><strong>直接在VScode的扩展管理搜索&quot;C/C++&quot;</strong><br />以下是该扩展的链接↓</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools</span><br></pre></td></tr></table></figure><h3 id="编译运行代码快捷键-2"><a class="markdownIt-Anchor" href="#编译运行代码快捷键-2"></a> 编译+运行代码快捷键</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+F5</span><br></pre></td></tr></table></figure><h2 id="clion"><a class="markdownIt-Anchor" href="#clion"></a> CLion</h2><p>这是从IntelliJ IDEA中分割出来的独立的C语言集成工具,是IntelliJ家的<br />他适用于编写大型项目,目前本人还没到那个程度:)</p><h3 id="免费激活使用"><a class="markdownIt-Anchor" href="#免费激活使用"></a> 免费激活使用</h3><p>另外附上IntelliJ全系列软件激活密钥免费获取网站↓</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://ckey.run/</span><br></pre></td></tr></table></figure><h2 id="鸣谢"><a class="markdownIt-Anchor" href="#鸣谢"></a> 鸣谢</h2><p><a href="https://ask.csdn.net/questions/9781534">CSDN:Dev-C++ 代码编辑区字体模糊、界面显示不清晰怎么办？</a><br /><a href="https://www.botproductions.com/iconview/download.html">Icon Viewer,提取exe程序图标的软件</a><br /><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">VScode C/C++扩展</a><br /><a href="https://ckey.run/">IntelliJ全系列软件激活密钥免费获取网站</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C语言-HelloWorld</title>
+      <link href="/2026/10/09/C%E8%AF%AD%E8%A8%80-HelloWorld/"/>
+      <url>/2026/10/09/C%E8%AF%AD%E8%A8%80-HelloWorld/</url>
+      
+        <content type="html"><![CDATA[<h2 id="总代码"><a class="markdownIt-Anchor" href="#总代码"></a> 总代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line">int <span class="function"><span class="title">main</span></span>()</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Hello World!\n&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">return</span> 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>注解：<br />#include &lt;stdio.h&gt;<br />表示该代码内引用头文件stdio.h的内容(相当于import package)<br />int main(){}<br />该代码的主窗口，让机器知道从这个地方开始读取与执行<br />printf(“Hello World!\n”);<br />打印内容<br />return 0;<br />返回0，如果是0,那么返回值为true，如果是1，那么返回值为false</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>建站</title>
+      <link href="/2026/10/08/%E5%BB%BA%E7%AB%99/"/>
+      <url>/2026/10/08/%E5%BB%BA%E7%AB%99/</url>
+      
+        <content type="html"><![CDATA[<h2 id="教程网站"><a class="markdownIt-Anchor" href="#教程网站"></a> 教程网站</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.cnblogs.com/coder-Jason/p/15821938.html</span><br></pre></td></tr></table></figure><h2 id="hexo文档"><a class="markdownIt-Anchor" href="#hexo文档"></a> Hexo文档</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://hexo.io/zh-cn/docs/</span><br></pre></td></tr></table></figure><h2 id="使用主题reimu"><a class="markdownIt-Anchor" href="#使用主题reimu"></a> 使用主题reimu</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/D-Sketon/hexo-theme-reimu</span><br></pre></td></tr></table></figure><h2 id="用git连接github"><a class="markdownIt-Anchor" href="#用git连接github"></a> 用git连接github</h2><p>先在本地仓库目录下启动cmd或者git bash<br />创建连接信息</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;DimMeteor&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;1592497663@qq.com&quot;</span></span><br></pre></td></tr></table></figure><p>建立远程链接</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:DimMeteor/Dim-blog</span><br></pre></td></tr></table></figure><p>修改远程链接仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin git@github.com:DimMeteor/Dim-blog.git</span><br></pre></td></tr></table></figure><p>将仓库内容全部推入暂存区</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add *</span><br></pre></td></tr></table></figure><p>将嵌套仓库(引用了别的仓库)添加暂存权限(需重新推入)</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule add https://github.com/D-Sketon/hexo-theme-reimu.git themes/reimu</span><br></pre></td></tr></table></figure><p>将暂存区内容提交到header</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;代码提交信息&quot;</span></span><br></pre></td></tr></table></figure><p>将暂存区内容提交到仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure><p>git工作流示意图<br /><img src="https://www.runoob.com/wp-content/uploads/2014/05/trees.png" alt="git工作流示意图" /><br />图片来源:<a href="https://www.runoob.com/w3cnote/git-guide.html" title="Github的简明教程">菜鸟教程</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网页制作 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>

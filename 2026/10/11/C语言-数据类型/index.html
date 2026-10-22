@@ -23,7 +23,7 @@
 <meta property="og:description" content="介绍C语言中数据类型的信息">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-10-11T06:37:36.000Z">
-<meta property="article:modified_time" content="2026-10-11T07:40:27.237Z">
+<meta property="article:modified_time" content="2026-10-17T11:26:10.399Z">
 <meta property="article:author" content="DimMetoer">
 <meta name="twitter:card" content="summary">
     <link rel="alternate" href="/atom.xml" title="DimMetoer's blog" type="application/atom+xml">
@@ -38,7 +38,7 @@
     
 <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.3/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.2"></head>
 
   <body>
       <div id='loader'>
@@ -143,7 +143,7 @@
     <div class="sidebar-wrap" data-aos="fade-up">
           <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text"> 数据类型的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text"> 数据类型的种类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E6%95%B0"><span class="toc-number">2.1.</span> <span class="toc-text"> 整数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BD%A2%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text"> 变量定义的完整形式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%90%8E%E5%8A%A0int"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 变量类型后加int</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E7%AC%A6%E5%8F%B7%E4%B8%8E%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B4%E6%95%B0"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 有符号与无符号整数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B%E5%B0%8F%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text"> 浮点型&#x2F;小数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6"><span class="toc-number">2.4.</span> <span class="toc-text"> 字符</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text"> 数据类型的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text"> 数据类型的种类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E6%95%B0"><span class="toc-number">2.1.</span> <span class="toc-text"> 整数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BD%A2%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text"> 变量定义的完整形式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%90%8E%E5%8A%A0int"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 变量类型后加int</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E7%AC%A6%E5%8F%B7%E4%B8%8E%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B4%E6%95%B0"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 有符号与无符号整数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B%E5%B0%8F%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text"> 浮点型&#x2F;小数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6"><span class="toc-number">2.4.</span> <span class="toc-text"> 字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">2.5.</span> <span class="toc-text"> 常量</span></a></li></ol></li></ol>
 </div>
 </div>
           <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -154,7 +154,7 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">9</div>
+    <div class="sidebar-state-number">12</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -215,7 +215,7 @@
       <div class="article-date">
   <span class="article-date-link icon-calendar" data-aos="zoom-in">
     <time datetime="2026-10-11T06:37:36.000Z" itemprop="datePublished">2026-10-11</time>
-    <time style="display: none;" id="post-update-time">2026-10-11</time>
+    <time style="display: none;" id="post-update-time">2026-10-17</time>
   </span>
 </div>
 
@@ -228,6 +228,7 @@
 <p>1.决定变量之中内存储什么类型的数据<br />
 2.决定一个变量的空间大小(如<code>int</code>类型，就是四个字节)</p>
 <h2 id="数据类型的种类"><a class="markdownIt-Anchor" href="#数据类型的种类"></a> 数据类型的种类</h2>
+<p>以下是变量，变量的内容是可以更改的</p>
 <h3 id="整数"><a class="markdownIt-Anchor" href="#整数"></a> 整数</h3>
 <table>
 <thead>
@@ -303,20 +304,25 @@
 <p>|数据类型|取值范围|占用大小|<br />
 |--------|-------|<br />
 |char|ASCII表内所有内容，即英文字母，英文标点符号和数字|1|</p>
+<h3 id="常量"><a class="markdownIt-Anchor" href="#常量"></a> 常量</h3>
+<p>常量的内容是不可更改的<br />
+如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int 2000；</span><br><span class="line">const int a = 20;</span><br></pre></td></tr></table></figure>
 
     </div>
     <footer class="article-footer">
-      
+        <a class="article-category-link" href="/categories/C%E8%AF%AD%E8%A8%80/" title="C语言" data-aos="zoom-in">C语言</a>
+
       
     </footer>
   </div>
     <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
       <div class="article-nav-link-wrap left">
-            <img data-src="https://cdn.jsdelivr.net/gh/DimMeteor/Dim-picture/picgo/Minecraft_Fall_Drop_Campaign_Key_Art_DotNet_Downloadable_Wallpaper_414x414.png" data-sizes="auto" alt="测试文件" class="lazyload">
-        <a href="/2026/10/12/%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6/" aria-label="前一篇: 测试文件" title="前一篇: 测试文件"></a>
+            <img data-src="https://cdn.jsdelivr.net/gh/DimMeteor/Dim-picture/picgo/Minecraft_Fall_Drop_Campaign_Key_Art_DotNet_Downloadable_Wallpaper_414x414.png" data-sizes="auto" alt="C语言-运算符" class="lazyload">
+        <a href="/2026/10/17/C%E8%AF%AD%E8%A8%80-%E8%BF%90%E7%AE%97%E7%AC%A6/" aria-label="前一篇: C语言-运算符" title="前一篇: C语言-运算符"></a>
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">
-            测试文件
+            C语言-运算符
         </h3>
       </div>
     <div class="article-nav-link-wrap right">
@@ -351,10 +357,10 @@
       </div>
       <div>
         <span class="icon-brush"></span>
-        2.5k
+        11.5k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:17
+        00:56
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -376,7 +382,7 @@
   <div class="sidebar-wrap">
         <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text"> 数据类型的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text"> 数据类型的种类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E6%95%B0"><span class="toc-number">2.1.</span> <span class="toc-text"> 整数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BD%A2%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text"> 变量定义的完整形式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%90%8E%E5%8A%A0int"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 变量类型后加int</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E7%AC%A6%E5%8F%B7%E4%B8%8E%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B4%E6%95%B0"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 有符号与无符号整数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B%E5%B0%8F%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text"> 浮点型&#x2F;小数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6"><span class="toc-number">2.4.</span> <span class="toc-text"> 字符</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text"> 数据类型的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text"> 数据类型的种类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E6%95%B0"><span class="toc-number">2.1.</span> <span class="toc-text"> 整数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BD%A2%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text"> 变量定义的完整形式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%90%8E%E5%8A%A0int"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 变量类型后加int</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E7%AC%A6%E5%8F%B7%E4%B8%8E%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B4%E6%95%B0"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 有符号与无符号整数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B%E5%B0%8F%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text"> 浮点型&#x2F;小数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6"><span class="toc-number">2.4.</span> <span class="toc-text"> 字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">2.5.</span> <span class="toc-text"> 常量</span></a></li></ol></li></ol>
 </div>
 </div>
         <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -387,7 +393,7 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">9</div>
+    <div class="sidebar-state-number">12</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -520,9 +526,9 @@
           url: "http://example.com/2026/10/11/C%E8%AF%AD%E8%A8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/",
           excerpt: "介绍C语言中数据类型的信息",
           description: "",
-          stripContent: " 数据类型的作用 1.决定变量之中内存储什么类型的数据 2.决定一个变量的空间大小(如int类型，就是四个字节)  数据类型的种类  整数    数据类型 占用大小     short 2   int(默认类型) 4   long 在32位内是4在64位内是8   long long(在C99才有) 8    不同数据类型取值范围由编译器决定，可以用sizeof来确定，但都遵循short&amp;lt;=int&amp;lt;=long&amp;lt;=long long 变量数据类型定义和关键字sizeof运用演示:",
+          stripContent: " 数据类型的作用 1.决定变量之中内存储什么类型的数据 2.决定一个变量的空间大小(如int类型，就是四个字节)  数据类型的种类 以下是变量，变量的内容是可以更改的  整数    数据类型 占用大小     short 2   int(默认类型) 4   long 在32位内是4在64位内是8   long long(在C99才有) 8    不同数据类型取值范围由编译器决定，可以用sizeof来确定，但都遵循short&amp;lt;=int&amp;lt;=long&amp;lt;=long long 变量数据类",
           date: "Sun Oct 11 2026 14:37:36 GMT+0800",
-          updated: "Sun Oct 11 2026 15:40:27 GMT+0800",
+          updated: "Sat Oct 17 2026 19:26:10 GMT+0800",
           cover: "/images/banner.webp",
         };
       </script>

@@ -23,7 +23,7 @@
 <meta property="og:description" content="实现用户的数据输入">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-10-17T11:21:29.000Z">
-<meta property="article:modified_time" content="2026-10-22T07:43:25.500Z">
+<meta property="article:modified_time" content="2026-10-26T11:21:03.772Z">
 <meta property="article:author" content="DimMetoer">
 <meta name="twitter:card" content="summary">
     <link rel="alternate" href="/atom.xml" title="DimMetoer的个人博客" type="application/atom+xml">
@@ -143,7 +143,7 @@
     <div class="sidebar-wrap" data-aos="fade-up">
           <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#scanf"><span class="toc-number">1.</span> <span class="toc-text"> scanf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Escanf%E8%AF%BB%E5%8F%96%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text"> 关于scanf读取机制</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#scanf"><span class="toc-number">1.</span> <span class="toc-text"> scanf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Escanf%E8%AF%BB%E5%8F%96%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text"> 关于scanf读取机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E4%B9%90%E7%9A%84%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text"> 快乐的练习题</span></a></li></ol>
 </div>
 </div>
           <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -215,7 +215,7 @@
       <div class="article-date">
   <span class="article-date-link icon-calendar" data-aos="zoom-in">
     <time datetime="2026-10-17T11:21:29.000Z" itemprop="datePublished">2026-10-17</time>
-    <time style="display: none;" id="post-update-time">2026-10-22</time>
+    <time style="display: none;" id="post-update-time">2026-10-26</time>
   </span>
 </div>
 
@@ -233,6 +233,15 @@
 <p>先码上代码↓</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line">int <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    int num1 = 0;</span><br><span class="line">    char op1;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入算式:&quot;</span>); //假如这里输入的是算式77+98=</span><br><span class="line">    scanf(<span class="string">&quot;%d&quot;</span>,&amp;num1); //这里scanf会直接读取数字77,此时读取指针停留在加号上</span><br><span class="line">    scanf(<span class="string">&quot; %c&quot;</span>,&amp;op1); //这里scanf会读取加号,而不是前面的77,因为77已经被上面那个scanf读取了</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上面这个实例告诉我们,scanf读取数值过程中,如果提供的占位符无法一次性读完所有数据,会将读取指针停留在下一个字符上,直到有下一个scanf语句能够合法的读取 这个/这些 字符.</p>
+<h2 id="快乐的练习题"><a class="markdownIt-Anchor" href="#快乐的练习题"></a> 快乐的练习题</h2>
+<p>难度：中档<br />
+题目：输入 t 个算式（1 ≤ t ≤ 100）。每个算式由正整数和运算符 +、-、<em>、/<br />
+组成，不含空格和括号，并以等号 = 结尾，例如 3+4</em>2= 。请按照数学中的运算<br />
+顺序算出每个算式的值：先算乘除、后算加减，同一级运算从左到右。<br />
+题目保证：每个除法都能整除；算式的值与运算过程中出现的数都在整数范围<br />
+内。<br />
+输入格式：第一行一个整数 t；接下来 t 行，每行一个以 = 结尾的算式。<br />
+输出格式：每组输出一行，即该算式的值，共 t 行。</p>
 
     </div>
     <footer class="article-footer">
@@ -282,10 +291,10 @@
       </div>
       <div>
         <span class="icon-brush"></span>
-        4.1k
+        4.3k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:23
+        00:24
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -307,7 +316,7 @@
   <div class="sidebar-wrap">
         <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#scanf"><span class="toc-number">1.</span> <span class="toc-text"> scanf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Escanf%E8%AF%BB%E5%8F%96%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text"> 关于scanf读取机制</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#scanf"><span class="toc-number">1.</span> <span class="toc-text"> scanf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Escanf%E8%AF%BB%E5%8F%96%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text"> 关于scanf读取机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E4%B9%90%E7%9A%84%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text"> 快乐的练习题</span></a></li></ol>
 </div>
 </div>
         <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -453,7 +462,7 @@
           description: "",
           stripContent: " scanf 将用户输入的内容赋值给变量 12int a,b;scanf(&amp;quot;%d,%d&amp;quot;,&amp;amp;a,&amp;amp;b); 双引号内仅是占位符，并非输出的文本内容 &amp;amp;表示将占位的内容输入到某个地址  关于scanf读取机制 先码上代码↓ 123456789#include &amp;lt;stdio.h&amp;gt;int main() &amp;#123;    int num1 = 0;    char op1;    printf(&amp;quot;请输入算式:&amp;quot;); //假如这里",
           date: "Sat Oct 17 2026 19:21:29 GMT+0800",
-          updated: "Thu Oct 22 2026 15:43:25 GMT+0800",
+          updated: "Mon Oct 26 2026 19:21:03 GMT+0800",
           cover: "/img/default_header.png",
         };
       </script>

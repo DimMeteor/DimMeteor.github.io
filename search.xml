@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>C语言-标识符</title>
+      <link href="/2026/10/26/C%E8%AF%AD%E8%A8%80-%E6%A0%87%E8%AF%86%E7%AC%A6/"/>
+      <url>/2026/10/26/C%E8%AF%AD%E8%A8%80-%E6%A0%87%E8%AF%86%E7%AC%A6/</url>
+      
+        <content type="html"><![CDATA[<h2 id="标识符的用处"><a class="markdownIt-Anchor" href="#标识符的用处"></a> 标识符的用处</h2><p>标识符其实就是我们定义的名字，如变量名、函数名</p><h2 id="标识符命名要求"><a class="markdownIt-Anchor" href="#标识符命名要求"></a> 标识符命名要求</h2><h3 id="硬性要求"><a class="markdownIt-Anchor" href="#硬性要求"></a> 硬性要求</h3><p>1.只能由数字、字母和下划线<code>_</code>组成<br />2.不能以数字开头</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int 123a = 10;</span><br></pre></td></tr></table></figure><p>这个函数的命名就是错误的↑<br />3.不能是关键字</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int <span class="keyword">if</span> = 10;</span><br></pre></td></tr></table></figure><p>这个函数的命名就是错误的↑<br />4.标识符区分大小写</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int a = 10;</span><br><span class="line">int A = 20;</span><br></pre></td></tr></table></figure><p>以上代码定义了两个变量</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int If = 10;</span><br></pre></td></tr></table></figure><p>以上变量定义不会报错(if的i是大写)↑</p><h3 id="软性建议"><a class="markdownIt-Anchor" href="#软性建议"></a> 软性建议</h3><p>最好用英文名字，见名知意<br />变量名：全部用小写字母<br />代码文件：全部用小写字母，单词之间用下划线隔开，可以用数字开头</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>原码反码和补码</title>
+      <link href="/2026/10/25/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E5%92%8C%E8%A1%A5%E7%A0%81/"/>
+      <url>/2026/10/25/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E5%92%8C%E8%A1%A5%E7%A0%81/</url>
+      
+        <content type="html"><![CDATA[<h2 id="原码"><a class="markdownIt-Anchor" href="#原码"></a> 原码</h2><p>原码是计算机内最直观的表示方法，是用二进制来表示数（包括正负）的一种方式。最左边是符号位，0是正数，1是负数，其余的位数表示数值<br />例如表示十进制的5：0000 0101，而表示-5：1000 0101</p><h2 id="反码"><a class="markdownIt-Anchor" href="#反码"></a> 反码</h2><p>反码<strong>主要</strong>用来表示负数，当用来表示正数时，符号位取0，其余与原数原码相同；当表示负数时，符号位取1，其余位数与原数原码相反；<br />例如用来表示十进制的-5：1111 1010</p><h2 id="补码"><a class="markdownIt-Anchor" href="#补码"></a> 补码</h2><p>补码是计算机内最常用的方法。当用来表示正数时，其补码与原数原码相同；当表示负数时，其补码为原数反码加1。<br />例如用来表示十进制的-5：1111 1011</p><p>补码的重要特性是，任何数的补码加上原码等于0<br />补码的使用可以用来简化计算机中的运算，因为减法也可以用加法表示，以十进制上的 5 - (-3) 为例：<br />1.先取 5 的原码 0000 0101，由于5是正数 其补码与原码相同。<br />2.取 -3 的原码 1000 0011， 再取反码 1111 1100， 再加一，所以-3的补码就是 1111 1101。<br />3.再将5 - (-3)转换成加法，即 5 + 3，再将其二者的补码进行二进制加法运算，也就是 0000 0101 + 0000 0011<br />4.得出的结果就是0000 0100，也就是十进制的8，与十进制的加法运算结果符合。</p><h2 id="总言"><a class="markdownIt-Anchor" href="#总言"></a> 总言</h2><p>一开始人们用原码计算，发现当遇到负数时结果与预期相反（原本应该+3却变成-3），于是反码诞生，结果当数的运算跨过0时，结果也出了问题，所以补码就诞生了。<br />计算机内部广泛使用补码表示有符号整数，因为它简化了硬件设计和运算处理。了解这些概念有助于理解计算机的底层运算机制和一些算法的实现原理。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机原理 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>C语言-函数scanf</title>
       <link href="/2026/10/17/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0scanf/"/>
       <url>/2026/10/17/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0scanf/</url>
@@ -23,11 +61,11 @@
     
     
     <entry>
-      <title>C语言-数据类型转换</title>
-      <link href="/2026/10/17/C%E8%AF%AD%E8%A8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-      <url>/2026/10/17/C%E8%AF%AD%E8%A8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</url>
+      <title>C语言-运算符</title>
+      <link href="/2026/10/17/C%E8%AF%AD%E8%A8%80-%E8%BF%90%E7%AE%97%E7%AC%A6/"/>
+      <url>/2026/10/17/C%E8%AF%AD%E8%A8%80-%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
       
-        <content type="html"><![CDATA[<h2 id="常见方法"><a class="markdownIt-Anchor" href="#常见方法"></a> 常见方法</h2><p>在变量的使用时，在变量之前使用<code>()+转换的变量类型</code>,即可临时转换变量类型</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int a = 10;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%f&quot;</span>,(<span class="built_in">float</span>)a);</span><br></pre></td></tr></table></figure><p>有个另类的方法,在整形变量做运算时，<code>乘以1.0</code>,即可转换成浮点型</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int b = 20;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%f&quot;</span>, 1.0 * b);</span><br></pre></td></tr></table></figure><h2 id="不同进制运算时内部进制的转换"><a class="markdownIt-Anchor" href="#不同进制运算时内部进制的转换"></a> 不同进制运算时，内部进制的转换</h2><p>整型的话是先转化成算式内最大取值范围的数据类型，如果有浮点型则全部转化成浮点型，再寻找有没有更高位的数据类型，再一起转过去。（够用就好，不用再凑）<br />详细见运算符篇<a href="/2026/10/17/C%E8%AF%AD%E8%A8%80-%E8%BF%90%E7%AE%97%E7%AC%A6/" title="C语言-运算符">C语言-运算符</a></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="算术运算符"><a class="markdownIt-Anchor" href="#算术运算符"></a> 算术运算符</h2><p>|运算符|含义|例子(a = 3,b = 4)|<br />|+|数学上的加法|(a + b)的结果就是7|<br />|-|数学上的减法|(a - b)的结果就是-1|<br />|*|数学上的乘法|(a * b)的结果就是12|<br />|/|数学上的除法|(a / b)的结果就是0|<br />|%|取余|(a % b)的结果就是3|<br />这里的 <code>/</code> 除法正确结果应该是0.75,但输出是0,因为做除法的两个变量都是整形，想要输出是浮点型至少需要有一个变量是浮点型，若都是整形，会<code>直接舍弃</code>小数部分</p><h3 id="不同数据类型的变量进行计算时"><a class="markdownIt-Anchor" href="#不同数据类型的变量进行计算时"></a> 不同数据类型的变量进行计算时：</h3><p>首先，变量之间需要相同的数据类型才能进行运算。<br />但我们的编译器替我们做了这一步，分别是隐式转换和强制转换</p><h4 id="隐式转换"><a class="markdownIt-Anchor" href="#隐式转换"></a> 隐式转换</h4><p>当一个变量的取值范围需要从小转换成大时发生，需要复习一下数据类型占用大小顺序<br /><code>double &gt; float &gt; long long &gt; long &gt; int &gt; short &gt; char</code><br />满足&quot;够用就行&quot;的原则，不会超过算式最大取值范围的数据类型<br /><strong>不过需要注意的是，当<code>short</code>与<code>char</code>进行计算时，一定会先转换成<code>int</code></strong><br />如以下代码:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">char a = <span class="string">&#x27;10&#x27;</span>;</span><br><span class="line">short b = <span class="string">&quot;20&quot;</span>;</span><br><span class="line">short c = <span class="string">&quot;30&quot;</span>;</span><br><span class="line">d = a + b;</span><br><span class="line">f = b + c;</span><br></pre></td></tr></table></figure><p>输出的<code>d</code>就是int类型，是先将<code>a</code>和<code>b</code>转换成int再运算。<br />有趣的是，变量<code>f</code>也是int类型，是将<code>b</code>和<code>c</code>先转换成int再计算。</p><h2 id="关系运算符"><a class="markdownIt-Anchor" href="#关系运算符"></a> 关系运算符</h2><p>|运算符|含义|例子(a = 3,b = 4)|<br />|+|数学上的加法|(a + b)的结果就是7|<br />|-|数学上的减法|(a - b)的结果就是-1|<br />|*|数学上的乘法|(a * b)的结果就是12|<br />|/|数学上的除法|(a / b)的结果就是0|<br />|%|取余|(a % b)的结果就是3|</p>]]></content>
       
       
       <categories>
@@ -42,11 +80,11 @@
     
     
     <entry>
-      <title>C语言-运算符</title>
-      <link href="/2026/10/17/C%E8%AF%AD%E8%A8%80-%E8%BF%90%E7%AE%97%E7%AC%A6/"/>
-      <url>/2026/10/17/C%E8%AF%AD%E8%A8%80-%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
+      <title>C语言-数据类型转换</title>
+      <link href="/2026/10/17/C%E8%AF%AD%E8%A8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
+      <url>/2026/10/17/C%E8%AF%AD%E8%A8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</url>
       
-        <content type="html"><![CDATA[<h2 id="算术运算符"><a class="markdownIt-Anchor" href="#算术运算符"></a> 算术运算符</h2><p>|运算符|含义|例子(a = 3,b = 4)|<br />|+|数学上的加法|(a + b)的结果就是7|<br />|-|数学上的减法|(a - b)的结果就是-1|<br />|*|数学上的乘法|(a * b)的结果就是12|<br />|/|数学上的除法|(a / b)的结果就是0|<br />|%|取余|(a % b)的结果就是3|<br />这里的 <code>/</code> 除法正确结果应该是0.75,但输出是0,因为做除法的两个变量都是整形，想要输出是浮点型至少需要有一个变量是浮点型，若都是整形，会<code>直接舍弃</code>小数部分</p><h3 id="不同数据类型的变量进行计算时"><a class="markdownIt-Anchor" href="#不同数据类型的变量进行计算时"></a> 不同数据类型的变量进行计算时：</h3><p>首先，变量之间需要相同的数据类型才能进行运算。<br />但我们的编译器替我们做了这一步，分别是隐式转换和强制转换</p><h4 id="隐式转换"><a class="markdownIt-Anchor" href="#隐式转换"></a> 隐式转换</h4><p>当一个变量的取值范围需要从小转换成大时发生，需要复习一下数据类型占用大小顺序<br /><code>double &gt; float &gt; long long &gt; long &gt; int &gt; short &gt; char</code><br />满足&quot;够用就行&quot;的原则，不会超过算式最大取值范围的数据类型<br /><strong>不过需要注意的是，当<code>short</code>与<code>char</code>进行计算时，一定会先转换成<code>int</code></strong><br />如以下代码:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">char a = <span class="string">&#x27;10&#x27;</span>;</span><br><span class="line">short b = <span class="string">&quot;20&quot;</span>;</span><br><span class="line">short c = <span class="string">&quot;30&quot;</span>;</span><br><span class="line">d = a + b;</span><br><span class="line">f = b + c;</span><br></pre></td></tr></table></figure><p>输出的<code>d</code>就是int类型，是先将<code>a</code>和<code>b</code>转换成int再运算。<br />有趣的是，变量<code>f</code>也是int类型，是将<code>b</code>和<code>c</code>先转换成int再计算。</p><h2 id="关系运算符"><a class="markdownIt-Anchor" href="#关系运算符"></a> 关系运算符</h2><p>|运算符|含义|例子(a = 3,b = 4)|<br />|+|数学上的加法|(a + b)的结果就是7|<br />|-|数学上的减法|(a - b)的结果就是-1|<br />|*|数学上的乘法|(a * b)的结果就是12|<br />|/|数学上的除法|(a / b)的结果就是0|<br />|%|取余|(a % b)的结果就是3|</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="常见方法"><a class="markdownIt-Anchor" href="#常见方法"></a> 常见方法</h2><p>在变量的使用时，在变量之前使用<code>()+转换的变量类型</code>,即可临时转换变量类型</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int a = 10;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%f&quot;</span>,(<span class="built_in">float</span>)a);</span><br></pre></td></tr></table></figure><p>有个另类的方法,在整形变量做运算时，<code>乘以1.0</code>,即可转换成浮点型</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int b = 20;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%f&quot;</span>, 1.0 * b);</span><br></pre></td></tr></table></figure><h2 id="不同进制运算时内部进制的转换"><a class="markdownIt-Anchor" href="#不同进制运算时内部进制的转换"></a> 不同进制运算时，内部进制的转换</h2><p>整型的话是先转化成算式内最大取值范围的数据类型，如果有浮点型则全部转化成浮点型，再寻找有没有更高位的数据类型，再一起转过去。（够用就好，不用再凑）<br />详细见运算符篇<a href="/2026/10/17/C%E8%AF%AD%E8%A8%80-%E8%BF%90%E7%AE%97%E7%AC%A6/" title="C语言-运算符">C语言-运算符</a></p>]]></content>
       
       
       <categories>
@@ -86,6 +124,12 @@
       
         <content type="html"><![CDATA[<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2><p>目前常见有二进制，十进制，八进制和十六进制<br />二进制指的是逢二进一，十进制指的是逢十进一，八进制指的是逢八进一<br />生活中常用的进制是十进制，如十进制的3在二进制中就是11，十进制中的13在八进制中就是15<br />十六进制与上同理。</p><h2 id="在代码中的运用"><a class="markdownIt-Anchor" href="#在代码中的运用"></a> 在代码中的运用</h2><p>二进制 需要在数字前加’0b’，<br />十进制 什么都不用加<br />八进制 需要在数字前加’0’，<br />十六进制 需要在数字前加’0x’<br />代码示例:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line">int <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">  int a = 0b11; //二进制</span><br><span class="line">  int b = 10;   //十进制</span><br><span class="line">  int c = 056;  //八进制</span><br><span class="line">  int d = 0xaf; //十六进制</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;a:%d,b:%d,c:%d,d:%d&quot;</span>,a,b,c,d); //使用占位符%d,使变量内容以十进制内容展示</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
       
       
     </entry>

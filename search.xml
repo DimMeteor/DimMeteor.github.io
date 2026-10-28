@@ -4,6 +4,63 @@
   
     
     <entry>
+      <title>C语言-函数gets</title>
+      <link href="/2026/10/29/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0gets/"/>
+      <url>/2026/10/29/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0gets/</url>
+      
+        <content type="html"><![CDATA[<p>gets函数位于头文件&lt;string.h&gt;内，可以从终端中获取用户输入的字符串</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char str[15];</span><br><span class="line">gets(str);</span><br><span class="line">puts(str);</span><br></pre></td></tr></table></figure><p>与scanf不同的是,gets函数不会因为遇到空格或制表符而停止，而是根据换行符停止.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C语言-函数puts</title>
+      <link href="/2026/10/29/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0puts/"/>
+      <url>/2026/10/29/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0puts/</url>
+      
+        <content type="html"><![CDATA[<p>puts函数位于头文件&lt;string.h&gt;内，可以输出字符串,同时支持转移字符.</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char str[] = <span class="string">&quot;TEST\nMessage&quot;</span>;</span><br><span class="line">puts(str);</span><br></pre></td></tr></table></figure><p>输出结果将是</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TEST</span><br><span class="line">Message</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C语言-数组</title>
+      <link href="/2026/10/29/C%E8%AF%AD%E8%A8%80-%E6%95%B0%E7%BB%84/"/>
+      <url>/2026/10/29/C%E8%AF%AD%E8%A8%80-%E6%95%B0%E7%BB%84/</url>
+      
+        <content type="html"><![CDATA[<p>数组可以看作是python的可修改字典</p><h2 id="定义数组"><a class="markdownIt-Anchor" href="#定义数组"></a> 定义数组</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据类型 数组名[数组长度]</span><br></pre></td></tr></table></figure><p>例子:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int a[10];</span><br></pre></td></tr></table></figure><p>上述例子定义了名为a且存储类型<strong>全为</strong>int的长度为10的数组(下标从0开始,最大为9)<br />当数组被定义时,数组名’a’将会存储在某个地址中，并按照数据类型大小和数组长度往后提前占用内存.为确保数组内数据准确,一般在数组定义时将其初始化</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,a);</span><br></pre></td></tr></table></figure><p>输出的将是数组a在内存中的首地址<br />特别的,当数组的数据类型为字符类型时,其数组最后一个元素会补为<code>\0</code>,标志着字符串的结束.</p><h2 id="数组的初始化"><a class="markdownIt-Anchor" href="#数组的初始化"></a> 数组的初始化</h2><p>可以将数组内所有元素赋予初始值,也可以在已知元素个数的情况下定义相应长度的数组</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a[3] = &#123;0,1,2,3&#125;;</span><br><span class="line">int b[] = &#123;1,2,3,4,5,6&#125;;</span><br><span class="line">int c[5] = &#123;0&#125;;</span><br></pre></td></tr></table></figure><p>其中数组c的五个元素全是0,批量初始化元素值只能用这种方式</p><h2 id="数组元素的调用"><a class="markdownIt-Anchor" href="#数组元素的调用"></a> 数组元素的调用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数组名[常量表达式]</span><br></pre></td></tr></table></figure><p>这里的<code>常量表达式</code>,如果用的是gcc编译器,可以用变量代替,否则只能用常量或表达式,例子如下:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b = a[1];</span><br><span class="line">b = a[3+5];</span><br></pre></td></tr></table></figure><p>数组的元素下标是<strong>从0开始</strong>,到数组长度-1<br />比如长度为3的数组,那么他的最大下标就是2<br /><strong>注意</strong>:当调用元素下标大于数组的长度时，很可能会使程序崩溃!所以手动调用数组时需要检查有没有越界.</p><h2 id="数组的类别"><a class="markdownIt-Anchor" href="#数组的类别"></a> 数组的类别</h2><p>其实原理都一样,只是在对应元素位置上再嵌套一个数组,就变成了多维数组</p><h3 id="一维数组"><a class="markdownIt-Anchor" href="#一维数组"></a> 一维数组</h3><p>上述例子的所有数组都是一维数组,他指的是一个数组内每个元素都是一个单独的值</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int a[3] = &#123;0,1,2&#125;;</span><br></pre></td></tr></table></figure><p>数组a就是一个一维数组,与二维数组作对比就能知晓</p><h3 id="二维数组"><a class="markdownIt-Anchor" href="#二维数组"></a> 二维数组</h3><p>其实就是在一维数组的基础上，将其每个元素都定义成另一个数组</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int b[3][4];</span><br></pre></td></tr></table></figure><p>如上例,数组b的第一维总长为3,第二维总长为4.分别为&quot;行&quot;与&quot;列&quot;.<br />将其内在展开就是:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int a[2][3] = &#123;&#123;0,1,2&#125;,&#123;I,II,III&#125;&#125;;</span><br></pre></td></tr></table></figure><p>将其列成表更易看懂:</p><table><thead><tr><th>数组a</th><th>第一列</th><th>第二列</th><th>第三列</th></tr></thead><tbody><tr><td>第一行</td><td>0</td><td>1</td><td>2</td></tr><tr><td>第二行</td><td>I</td><td>II</td><td>III</td></tr></tbody></table><p>上表能直观的表示二维数组各元素存放规则及位置.</p><h2 id="数组的调用"><a class="markdownIt-Anchor" href="#数组的调用"></a> 数组的调用</h2><p>这里特指字符数组<br />当用printf输出字符数组时,占位符用%s<br />用scanf时不用加<code>&amp;</code>,可以加域宽来防止录入的字符串超过原定数组长度,如</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char str[15];</span><br><span class="line">scanf(<span class="string">&quot;14%s&quot;</span>,str);</span><br></pre></td></tr></table></figure><p>当用scanf读取字符串时，如果遇到空格，tab或回车，字符数组将停止输入。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>C语言-标识符</title>
       <link href="/2026/10/26/C%E8%AF%AD%E8%A8%80-%E6%A0%87%E8%AF%86%E7%AC%A6/"/>
       <url>/2026/10/26/C%E8%AF%AD%E8%A8%80-%E6%A0%87%E8%AF%86%E7%AC%A6/</url>
@@ -46,7 +103,7 @@
       <link href="/2026/10/17/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0scanf/"/>
       <url>/2026/10/17/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0scanf/</url>
       
-        <content type="html"><![CDATA[<h2 id="scanf"><a class="markdownIt-Anchor" href="#scanf"></a> scanf</h2><p>将用户输入的内容赋值给变量</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int a,b;</span><br><span class="line">scanf(<span class="string">&quot;%d,%d&quot;</span>,&amp;a,&amp;b);</span><br></pre></td></tr></table></figure><p>双引号内仅是占位符，并非输出的文本内容<br /><code>&amp;</code>表示将占位的内容输入到某个地址</p><h2 id="关于scanf读取机制"><a class="markdownIt-Anchor" href="#关于scanf读取机制"></a> 关于scanf读取机制</h2><p>先码上代码↓</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line">int <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    int num1 = 0;</span><br><span class="line">    char op1;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入算式:&quot;</span>); //假如这里输入的是算式77+98=</span><br><span class="line">    scanf(<span class="string">&quot;%d&quot;</span>,&amp;num1); //这里scanf会直接读取数字77,此时读取指针停留在加号上</span><br><span class="line">    scanf(<span class="string">&quot; %c&quot;</span>,&amp;op1); //这里scanf会读取加号,而不是前面的77,因为77已经被上面那个scanf读取了</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面这个实例告诉我们,scanf读取数值过程中,如果提供的占位符无法一次性读完所有数据,会将读取指针停留在下一个字符上,直到有下一个scanf语句能够合法的读取 这个/这些 字符.</p><h2 id="快乐的练习题"><a class="markdownIt-Anchor" href="#快乐的练习题"></a> 快乐的练习题</h2><p>难度：中档<br />题目：输入 t 个算式（1 ≤ t ≤ 100）。每个算式由正整数和运算符 +、-、<em>、/<br />组成，不含空格和括号，并以等号 = 结尾，例如 3+4</em>2= 。请按照数学中的运算<br />顺序算出每个算式的值：先算乘除、后算加减，同一级运算从左到右。<br />题目保证：每个除法都能整除；算式的值与运算过程中出现的数都在整数范围<br />内。<br />输入格式：第一行一个整数 t；接下来 t 行，每行一个以 = 结尾的算式。<br />输出格式：每组输出一行，即该算式的值，共 t 行。</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="scanf"><a class="markdownIt-Anchor" href="#scanf"></a> scanf</h2><p>scanf函数位于头文件&lt;stdio.h&gt;内，是读取终端内用户输入的数据.</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int a,b;</span><br><span class="line">scanf(<span class="string">&quot;%d,%d&quot;</span>,&amp;a,&amp;b);</span><br></pre></td></tr></table></figure><p>双引号内仅是占位符，并非输出的文本内容<br /><code>&amp;</code>表示将占位的内容输入到某个地址</p><h2 id="关于scanf读取机制"><a class="markdownIt-Anchor" href="#关于scanf读取机制"></a> 关于scanf读取机制</h2><p>先码上代码↓</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line">int <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    int num1 = 0;</span><br><span class="line">    char op1;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入算式:&quot;</span>); //假如这里输入的是算式77+98=</span><br><span class="line">    scanf(<span class="string">&quot;%d&quot;</span>,&amp;num1); //这里scanf会直接读取数字77,此时读取指针停留在加号上</span><br><span class="line">    scanf(<span class="string">&quot; %c&quot;</span>,&amp;op1); //这里scanf会读取加号,而不是前面的77,因为77已经被上面那个scanf读取了</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面这个实例告诉我们,scanf读取数值过程中,如果提供的占位符无法一次性读完所有数据,会将读取指针停留在下一个字符上,直到有下一个scanf语句能够合法的读取 这个/这些 字符.</p><h2 id="快乐的练习题"><a class="markdownIt-Anchor" href="#快乐的练习题"></a> 快乐的练习题</h2><p>难度：中档<br />题目：输入 t 个算式（1 ≤ t ≤ 100）。每个算式由正整数和运算符 +、-、<em>、/<br />组成，不含空格和括号，并以等号 = 结尾，例如 3+4</em>2= 。请按照数学中的运算<br />顺序算出每个算式的值：先算乘除、后算加减，同一级运算从左到右。<br />题目保证：每个除法都能整除；算式的值与运算过程中出现的数都在整数范围<br />内。<br />输入格式：第一行一个整数 t；接下来 t 行，每行一个以 = 结尾的算式。<br />输出格式：每组输出一行，即该算式的值，共 t 行。</p>]]></content>
       
       
       <categories>

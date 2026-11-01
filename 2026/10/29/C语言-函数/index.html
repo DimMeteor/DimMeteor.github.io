@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://example.com/img/zhijiedigui.png">
 <meta property="og:image" content="http://example.com/img/jianjiedigui.png">
 <meta property="article:published_time" content="2026-10-29T05:22:56.000Z">
-<meta property="article:modified_time" content="2026-11-01T07:56:14.777Z">
+<meta property="article:modified_time" content="2026-11-01T07:57:18.028Z">
 <meta property="article:author" content="DimMetoer">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/img/zhijiedigui.png">
@@ -250,21 +250,9 @@
 <h4 id="直接递归"><a class="markdownIt-Anchor" href="#直接递归"></a> 直接递归</h4>
 <p>当一个函数调用其本身时，我们称这个操作为直接递归<br />
 <img src="/img/zhijiedigui.png" alt="直接递归示图" title="直接递归" /><br />
-示例代码:<br />
-int ces(int a)<br />
-{<br />
-static int i = 0;<br />
-if (i &lt; a)<br />
-{<br />
-i++;ces(a);<br />
-}<br />
-else return 0;<br />
-}</p>
-<p>int main()<br />
-{<br />
-printf(“%d”,ces(3));<br />
-}<br />
-函数ces在main函数中被调用,然后自调用了四次;<br />
+示例代码:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">int ces(int a)</span><br><span class="line">&#123;</span><br><span class="line">    static int i = 0;</span><br><span class="line">    <span class="keyword">if</span> (i &lt; a)</span><br><span class="line">    &#123;</span><br><span class="line">        i++;ces(a);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">return</span> 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int <span class="function"><span class="title">main</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,ces(3));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数ces在main函数中被调用,然后自调用了四次;<br />
 注意,直接递归必须要用明确的、清晰的结束语句</p>
 <h4 id="间接递归"><a class="markdownIt-Anchor" href="#间接递归"></a> 间接递归</h4>
 <p>当一个函数调用另一个函数之后,在另一个函数之内被再次调用,称间接递归<br />
@@ -398,7 +386,7 @@ printf(“%d”,ces(3));<br />
         7.2k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:39
+        00:40
       </div>
       <div class="footer-beian">
         <a target="_blank" rel="noopener nofollow noreferrer" href="https://beian.miit.gov.cn">粤ICP备2026159732号</a>
@@ -573,7 +561,7 @@ printf(“%d”,ces(3));<br />
           description: "",
           stripContent: " 函数的定义 1[返回值类型] 函数名(形参)&amp;#123;函数体&amp;#125; 返回值类型:可以是int,float,char,如果没有,可以是void 函数名:是标识符,全部用英文字母小写. 形参:输入函数的数据,形参中每个参数都需要单独声明数据类型.如: 1void ces(int a,b)&amp;#123;return 0&amp;#125; 以上函数ces形参的定义是不和规的,应改成 int a, int b 特别注意,形参与形参之间用逗号,隔开,而不是分号;  函数的声明与调用  同个源文件内函数的调",
           date: "Thu Oct 29 2026 13:22:56 GMT+0800",
-          updated: "Sun Nov 01 2026 15:56:14 GMT+0800",
+          updated: "Sun Nov 01 2026 15:57:18 GMT+0800",
           cover: "/img/default_header.png",
         };
       </script>

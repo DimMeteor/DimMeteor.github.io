@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>C语言-结构体</title>
+      <link href="/2026/11/04/C%E8%AF%AD%E8%A8%80-%E7%BB%93%E6%9E%84%E4%BD%93/"/>
+      <url>/2026/11/04/C%E8%AF%AD%E8%A8%80-%E7%BB%93%E6%9E%84%E4%BD%93/</url>
+      
+        <content type="html"><![CDATA[<h2 id=""><a class="markdownIt-Anchor" href="#"></a> </h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C语言-指针</title>
+      <link href="/2026/11/04/C%E8%AF%AD%E8%A8%80-%E6%8C%87%E9%92%88/"/>
+      <url>/2026/11/04/C%E8%AF%AD%E8%A8%80-%E6%8C%87%E9%92%88/</url>
+      
+        <content type="html"><![CDATA[<h2 id="指针的定义"><a class="markdownIt-Anchor" href="#指针的定义"></a> 指针的定义</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[数据类型] *[变量名];</span><br></pre></td></tr></table></figure><p>其中<code>*</code>可以在数据类型之后，也可在变量名之前</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int* p;</span><br><span class="line">int *q;</span><br></pre></td></tr></table></figure><p>而定义之后的变量称为指针变量<br />**注意：**①当多个同类型的指针同时声明时，需要挨个声明类型，如:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int *p,q;</span><br></pre></td></tr></table></figure><p>这是不对的,应该改成</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int *p,*q;</span><br></pre></td></tr></table></figure><p>②在指针不会自动初始化，需要人为初始化，所以在赋予其地址之前不能使用指针，否则程序会直接崩溃<br />③只有相同数据类型的指针能互相赋值<br />④指针变量类型强制转换也会带来失真，甚至程序崩溃,因为转换后有可能指向了一个错误的地址</p><h2 id="指针的用途"><a class="markdownIt-Anchor" href="#指针的用途"></a> 指针的用途</h2><p>指针存储的是<strong>地址</strong>,而访问一个变量可以用变量名，也可以用地址访问<br />我们可以用指针进行间接访问、共享、修改、链接和选择对象<br />例如，在函数中我们无法对实参的原变量进行修改(除数组)，但如果用指针就可做到<br />还有些时候，不同情况需要输出不同变量内容时，也可用指针。</p><h2 id="指针变量的使用"><a class="markdownIt-Anchor" href="#指针变量的使用"></a> 指针变量的使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int *p;</span><br><span class="line">int a = 10;</span><br><span class="line">p = &amp;a;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;a:%d&quot;</span>,*p);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;b:%p&quot;</span>,p);</span><br></pre></td></tr></table></figure><p>输出结果：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a:10</span><br><span class="line">b:6291060</span><br></pre></td></tr></table></figure><p>所输出的<code>a</code>,是普通变量a的值,而输出的<code>b</code>,是普通变量a的地址<br />同样的,指针变量也具有一个自己的地址,可用取值符<code>&amp;</code>获取.<br />顺带一提，数组的首字符是其地址，当函数的形参是一个数组时，传输的不是数组的内容，而是数组的地址，从而能够更改数组的内容，同样的，如果形参是指针，哪怕指向的是普通的变量，也能在其他函数体内修改其值。</p><h2 id="动态存储管理"><a class="markdownIt-Anchor" href="#动态存储管理"></a> 动态存储管理</h2><p>当我们需要临时申请内存空间(如，需要根据程序运行情况申请对应长度的数组时)用于存储数据时，可以用头文件&lt;stdlib.h&gt;内的calloc函数和malloc函数.不同的是申请方式与初始值不同.</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">calloc(数量,每个数量的大小) //初始值为0</span><br><span class="line">malloc(申请内存的大小)  //初始值随机</span><br></pre></td></tr></table></figure><p>需要注意的是，手动申请的内存空间不会随着程序结束而释放，需要用头文件&lt;stdlib.h&gt;内的free函数释放</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">free(指针/地址)</span><br></pre></td></tr></table></figure><h2 id="数组指针"><a class="markdownIt-Anchor" href="#数组指针"></a> 数组指针</h2><p>数组名其实就是该数组的地址，而当一个指针指向数组时，存储的地址就是该数组的地址，同时也可指向数组的某个元素</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int list[10] = &#123;0&#125;;</span><br><span class="line">int *q = list;</span><br><span class="line">int *r = &amp;list[5];</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;输出对应变量的地址:\n&quot;</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;list:%p\n&quot;</span>,list);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;q:%p\n&quot;</span>,q);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;r:%p&quot;</span>,r);</span><br></pre></td></tr></table></figure><p>输出为:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输出对应变量的地址:</span><br><span class="line">list:6290992</span><br><span class="line">q:6290992</span><br><span class="line">r:6291012</span><br></pre></td></tr></table></figure><p>可见指针变量<code>r</code>指向的是<code>list</code>的第六个元素<br />而对指针变量<code>r</code>进行<code>+2</code>,会指向下面第二个元素<br />在程序内部,其实是<code>+(2 * sizeof(list))</code><br /><code>*p++</code>与<code>(*p)++</code>的区别:<br />因为<code>*</code>与<code>++</code>同级，又是右结合,因此是<code>*(p++)</code><br />这种操作只当指针变量指向数组时有意义.<br />而当指针需要指向二维数组的某个元素时:<br /><code>*(p+i)+j</code>是二维数组p的第i行第j列</p><h2 id="函数指针"><a class="markdownIt-Anchor" href="#函数指针"></a> 函数指针</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[函数类型] (*指针变量名)(参数列表);</span><br></pre></td></tr></table></figure><p>参数列表内只需要对应参数的数据类型，不需要形参的名字</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int add(int a,int b)&#123;...&#125;</span><br><span class="line"></span><br><span class="line">int (*pf)(int, int);</span><br><span class="line">pf = add;</span><br><span class="line"><span class="built_in">sum</span> = (*pf)(x,y);</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>C语言-预处理命令</title>
       <link href="/2026/11/01/C%E8%AF%AD%E8%A8%80-%E9%A2%84%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4/"/>
       <url>/2026/11/01/C%E8%AF%AD%E8%A8%80-%E9%A2%84%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4/</url>

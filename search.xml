@@ -8,7 +8,7 @@
       <link href="/2026/11/14/stm32-%E8%BD%AF%E4%BB%B6%E8%AE%A4%E8%AF%86/"/>
       <url>/2026/11/14/stm32-%E8%BD%AF%E4%BB%B6%E8%AE%A4%E8%AF%86/</url>
       
-        <content type="html"><![CDATA[<h2 id="keil-5"><a class="markdownIt-Anchor" href="#keil-5"></a> Keil 5</h2><p>这是一个IDE，可用于单片机开发<br /><img src="keil5-1.png" alt="keil5-1" /><br />上图图示扳手可以设置tab缩进和字体、字号和字体颜色<br /><img src="keil5-2.png" alt="kei5-2" /><img src="keil5-2-2.png" alt="keil5-2-2" /><img src="keil5-2-3.png" alt="keil5-2-3" /><br />上图图示可以设置C/C++的预处理宏,头文件目录,Debug引擎以及在下载数据之后自动重置并运行(开启这个能省去手动按下单片机上reset按钮).<br /><img src="keil5-3.png" alt="keil5-3" /><br />红色方框是编译按钮，可在编译结果查看代码有无错误。<br />蓝色方框是下载按钮，可将代码下载到单片机上。<br />黄色方框可以调整左边项目文件夹的顺序。</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="keil-5"><a class="markdownIt-Anchor" href="#keil-5"></a> Keil 5</h2><p>这是一个IDE，可用于单片机开发<br /><img src="/img/keil5-1.png" alt="keil5-1" /><br />上图图示扳手可以设置tab缩进和字体、字号和字体颜色<br /><img src="/img/keil5-2.png" alt="kei5-2" /><img src="/img/keil5-2-2.png" alt="keil5-2-2" /><img src="/img/keil5-2-3.png" alt="keil5-2-3" /><br />上图图示可以设置C/C++的预处理宏,头文件目录,Debug引擎以及在下载数据之后自动重置并运行(开启这个能省去手动按下单片机上reset按钮).<br /><img src="/img/keil5-3.png" alt="keil5-3" /><br />红色方框是编译按钮，可在编译结果查看代码有无错误。<br />蓝色方框是下载按钮，可将代码下载到单片机上。<br />黄色方框可以调整左边项目文件夹的顺序。</p>]]></content>
       
       
       <categories>

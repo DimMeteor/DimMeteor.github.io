@@ -4,11 +4,30 @@
   
     
     <entry>
+      <title>stm32-软件认识</title>
+      <link href="/2026/11/14/stm32-%E8%BD%AF%E4%BB%B6%E8%AE%A4%E8%AF%86/"/>
+      <url>/2026/11/14/stm32-%E8%BD%AF%E4%BB%B6%E8%AE%A4%E8%AF%86/</url>
+      
+        <content type="html"><![CDATA[<h2 id="keil-5"><a class="markdownIt-Anchor" href="#keil-5"></a> Keil 5</h2><p>这是一个IDE，可用于单片机开发<br /><img src="keil5-1.png" alt="keil5-1" /><br />上图图示扳手可以设置tab缩进和字体、字号和字体颜色<br /><img src="keil5-2.png" alt="kei5-2" /><img src="keil5-2-2.png" alt="keil5-2-2" /><img src="keil5-2-3.png" alt="keil5-2-3" /><br />上图图示可以设置C/C++的预处理宏,头文件目录,Debug引擎以及在下载数据之后自动重置并运行(开启这个能省去手动按下单片机上reset按钮).<br /><img src="keil5-3.png" alt="keil5-3" /><br />红色方框是编译按钮，可在编译结果查看代码有无错误。<br />蓝色方框是下载按钮，可将代码下载到单片机上。<br />黄色方框可以调整左边项目文件夹的顺序。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> stm32 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>C语言-结构体</title>
       <link href="/2026/11/04/C%E8%AF%AD%E8%A8%80-%E7%BB%93%E6%9E%84%E4%BD%93/"/>
       <url>/2026/11/04/C%E8%AF%AD%E8%A8%80-%E7%BB%93%E6%9E%84%E4%BD%93/</url>
       
-        <content type="html"><![CDATA[<h2 id=""><a class="markdownIt-Anchor" href="#"></a> </h2>]]></content>
+        <content type="html"><![CDATA[<h2 id="认识结构体"><a class="markdownIt-Anchor" href="#认识结构体"></a> 认识结构体</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">struct Student</span><br><span class="line">&#123;</span><br><span class="line">    int <span class="built_in">id</span>;</span><br><span class="line">    char name[10];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line">int <span class="function"><span class="title">main</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">    struct Student student;</span><br><span class="line">    student.id = 10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>形如,以关键字<code>struct</code>声明的新的数据类型,就是结构体.</p><h2 id="结构体变量的定义"><a class="markdownIt-Anchor" href="#结构体变量的定义"></a> 结构体变量的定义</h2><p>声明结构体类型↓</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct 结构体类型&#123;</span><br><span class="line">    数据类型名1 成员名1;</span><br><span class="line">&#125; [变量名(可选)];</span><br><span class="line"><span class="comment">#include ...</span></span><br><span class="line">    struct 结构体类型 变量名; //定义结构体变量</span><br><span class="line">    变量名.成员名 //引用结构体变量内的成员</span><br></pre></td></tr></table></figure><p>其中,<code>struct</code>是C语言的关键字,<code>结构体类型</code>是标识符,<code>[变量名(可选)]</code>是可选内容,能够在定义结构体类型的同时定义一个结构体变量,可删去,结构体以分号<code>;</code>结束</p><h2 id="结构体变量的初始化"><a class="markdownIt-Anchor" href="#结构体变量的初始化"></a> 结构体变量的初始化</h2>]]></content>
       
       
       <categories>

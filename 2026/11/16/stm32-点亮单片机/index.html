@@ -1,0 +1,591 @@
+  <!DOCTYPE html>
+  <html lang="zh-CN"  data-theme-mode="auto">
+  <head>
+  <meta charset="utf-8">
+  
+  
+  
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_ex15nbittbh';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'http://example.com';window.REIMU_CONFIG.relative = '/';window.REIMU_CONFIG.dark_mode = {"button":true,"mode":"auto"};</script>
+  <title>
+    stm32-点亮单片机 | DimMetoer的个人博客
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media='all'">
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_ex15nbittbh.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="通过C语言点亮单片机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="stm32-点亮单片机">
+<meta property="og:url" content="http://example.com/2026/11/16/stm32-%E7%82%B9%E4%BA%AE%E5%8D%95%E7%89%87%E6%9C%BA/index.html">
+<meta property="og:site_name" content="DimMetoer的个人博客">
+<meta property="og:description" content="通过C语言点亮单片机">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/stm32-1-1.png">
+<meta property="og:image" content="http://example.com/img/stm32-1-1.png">
+<meta property="og:image" content="http://example.com/img/stm32-1-3.png">
+<meta property="og:image" content="http://example.com/img/stm32-1-4.png">
+<meta property="og:image" content="http://example.com/img/stm32-1-5.png">
+<meta property="og:image" content="http://example.com/2026/11/16/stm32-%E7%82%B9%E4%BA%AE%E5%8D%95%E7%89%87%E6%9C%BA/stm32-1-6.png">
+<meta property="article:published_time" content="2026-11-16T10:30:30.000Z">
+<meta property="article:modified_time" content="2026-11-16T12:01:09.699Z">
+<meta property="article:author" content="DimMetoer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/stm32-1-1.png">
+    <link rel="alternate" href="/atom.xml" title="DimMetoer的个人博客" type="application/atom+xml">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx/1oA/0l8ysE" crossorigin="anonymous">
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.3/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+  <body>
+      <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script>
+<div id="copy-tooltip"></div>
+<div id="heatmap-tooltip"></div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation">
+        <a class="main-nav-link-wrap" href="/">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">首页</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/archives">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">归档</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/about">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">关于</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/friend">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">友链</span>
+        </a>
+    <a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation">
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" aria-label="RSS 订阅" target="_blank"></a>
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索" aria-label="搜索"></a>
+  </nav>
+</div>
+<header id="header" aria-label="Site header">
+    <picture></picture>
+    <img  fetchpriority="high" src="/img/default_header.png" alt="stm32-点亮单片机">
+  <div id="header-outer">
+    <div id="header-title">
+          <span id="logo">
+            <h1 data-aos="slide-up">stm32-点亮单片机</h1>
+          </span>
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+        </h2>
+    </div>
+  </div>
+</header>
+
+        <div id="content" aria-label="Page content" class="sidebar-left"  >
+          <aside id="sidebar" aria-label="Sidebar">
+  <div class="sidebar-wrapper-container sticky">
+  <div class="sidebar-wrapper">
+    <div class="sidebar-wrap" data-aos="fade-up">
+          <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text"> 引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%AF%84%E5%AD%98%E5%99%A8%E7%82%B9%E7%81%AF"><span class="toc-number">2.</span> <span class="toc-text"> 通过寄存器点灯</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%B9%E7%81%AF"><span class="toc-number">2.1.</span> <span class="toc-text"> 点灯</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E5%88%86%E6%9E%90"><span class="toc-number">2.2.</span> <span class="toc-text"> 总结分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%BA%93%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text"> 通过库函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%B9%E7%81%AF-2"><span class="toc-number">3.1.</span> <span class="toc-text"> 点灯</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-number">4.</span> <span class="toc-text"> 补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%B8%A3%E8%B0%A2"><span class="toc-number">5.</span> <span class="toc-text"> 鸣谢</span></a></li></ol>
+</div>
+</div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="DimMetoer" class="lazyload">
+  <div class="sidebar-author-name">DimMetoer</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">24</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">5</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">0</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+    </div>
+  </div>
+  <div class="sidebar-widget">
+  </div>
+  </div>
+</aside>
+
+          <section id="main" aria-label="Main content"><article id="post-stm32-点亮单片机" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <span class="article-date-link icon-calendar" data-aos="zoom-in">
+    <time datetime="2026-11-16T10:30:30.000Z" itemprop="datePublished">2026-11-16</time>
+    <time style="display: none;" id="post-update-time">2026-11-16</time>
+  </span>
+</div>
+
+    </div>
+    
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+        <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>拿到单片机(stm32F10x),安装好相关驱动程序之后(本网站若无说明,此后以STLink驱动单片机),首先要做的就是点亮单片机,就像每个程序员第一扇门&quot;HelloWorld&quot;<br />
+点亮单片机,其实就是给单片机传达&quot;点灯&quot;这一指令,有多种方式,但最根本的就是修改寄存器.<br />
+<img src="/img/stm32-1-1.png" alt="连接图" /><br />
+这是stlink和单片机引脚的连接图</p>
+<h2 id="通过寄存器点灯"><a class="markdownIt-Anchor" href="#通过寄存器点灯"></a> 通过寄存器点灯</h2>
+<p>以下代码均在<code>main.c</code>文件中实现↓<br />
+首先最基础的代码↓</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &quot;stm32f10x.h&quot;                  // Device header</span></span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">while</span> (1)</span><br><span class="line">	&#123;</span><br><span class="line">			</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最初的单片机,电源灯应该是常亮的,而接在PC13口上的灯应该是闪烁的,这是单片机内自带的测试程序.当这段代码编译并下载之后,灯就会灭,因为单片机内无任何控制代码.<br />
+Q1:为什么加while(1)死循环？<br />
+A1:大肥鱼老师说,单片机内无操作系统,如果嵌入式程序停止运行,将会进入未定义状态.while(1) 是裸机程序的&quot;主心骨&quot;，让 CPU 有明确的执行流，避免程序结束后陷入未定义状态。<br />
+Q2:那么问题来了,既然单片机内没有操作系统，那C语言程序是怎么在单片机上运行的？<br />
+A2:大肥鱼老师说,单片机上的 C 程序能跑，是因为&quot;启动文件&quot;替代了操作系统的加载器，手工完成了栈初始化、段复制、bss 清零、库初始化，然后跳进 main；链接脚本规定了代码和数据放在芯片的哪个物理地址；CPU 上电后按 ARM 规定从向量表取栈顶和入口地址。操作系统在这条链路上从头到尾都不需要。</p>
+<h3 id="点灯"><a class="markdownIt-Anchor" href="#点灯"></a> 点灯</h3>
+<p>我们可以通过RCC寄存器，对其时钟使能进行点灯<br />
+GPIO都是APB2的外设,对IOPCEN配置成1,其他配置成0,讲二进制转换成十六进制,写入寄存器,即可开启时钟.<br />
+<img src="/img/stm32-1-1.png" alt="参考文档1" /><br />
+写成代码就是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RCC-&gt;APB2ENR = 0x00000010;</span><br></pre></td></tr></table></figure>
+<p>要注意写在main函数里面,在while循环上面.<br />
+接下来就是配置GPIO口13号口端口配置,见参考手册8.2.2<br />
+以通用推挽模式输出,以最大速度输出,写成代码就是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GPIOC-&gt;CRH = 0x00300000;</span><br></pre></td></tr></table></figure>
+<p>接下来对端口输出,见参考手册8.2.4<br />
+对ODR13进行高电平输出(值为1)<br />
+写成代码就是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GPIOC-&gt;ODR = 0x00002000;</span><br></pre></td></tr></table></figure>
+<p>由于这个灯是低电平才会亮,所以以上代码是使灯灭,而将ODR口全输出为低电平(即全为0),才会亮灯.</p>
+<h3 id="总结分析"><a class="markdownIt-Anchor" href="#总结分析"></a> 总结分析</h3>
+<p>可见通过配置寄存器,我们需要不断的查找手册,而且我们将除了PC13口的其他端口都配置成0,会影响其他端口原有配置.如果只想配置13号口,就需要做位运算,比较麻烦<br />
+虽然代码简洁,但不方便</p>
+<h2 id="通过库函数"><a class="markdownIt-Anchor" href="#通过库函数"></a> 通过库函数</h2>
+<p>库函数根本原理也是调控寄存器,不过是替我们先找好了文档,做好了位运算<br />
+我们打开头文件文档,在文档最底部有个宏定义预处理,将其在<code>main.c</code>文件头定义宏定义,即可使用<br />
+<img src="/img/stm32-1-3.png" alt="参考文档2" /><br />
+我们可以在Keil5内配置宏,就不用自己定义宏了.<br />
+<img src="/img/stm32-1-4.png" alt="魔术棒配置" /><br />
+点开魔术棒,选择C/C++,在define里写入文档内的宏名,别忘了将库文件写入路径内.</p>
+<h3 id="点灯-2"><a class="markdownIt-Anchor" href="#点灯-2"></a> 点灯</h3>
+<p>同样的,通过库函数也需要先使能时钟<br />
+我们可以通过函数<code>RCC_APB2PeriphClockCmd</code>使能时钟<br />
+这个函数有两个参数,一个是选择外设,一个是新的状态,<br />
+在keil5内,我们可以通过右键函数名,在选项内可以去查看函数定义的位置,通过查看定义位置之上的文档查看函数简介和参数说明<br />
+写入代码之后就是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC,ENABLE);</span><br></pre></td></tr></table></figure>
+<p>第二步就是配置端口模式<br />
+我们可以用函数<code>GPIO_Init</code>配置,写入代码就是:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GPIO_InitTypeDef GPIO_InitStructure;</span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;</span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;</span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;</span><br><span class="line">GPIO_Init(GPIOC, &amp;GPIO_InitStructure);</span><br></pre></td></tr></table></figure>
+<p>这里之所以用结构体是文档内要求,而结构体名称<code>GPIO_InitStructure</code>是官方推荐的名称,当然这是可以自定义的<br />
+最后设置端口的高低电平进行点灯<br />
+可以通过函数<code>GPIO_SetBits</code>(高电平)和<code>GPIO_ResetBits</code>(低电平)实现:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//GPIO_SetBits(GPIOC, GPIO_Pin_13);</span><br><span class="line">GPIO_ResetBits(GPIOC, GPIO_Pin_13);</span><br></pre></td></tr></table></figure>
+<h2 id="补充"><a class="markdownIt-Anchor" href="#补充"></a> 补充</h2>
+<p>以上就是点灯的两种方式了<br />
+对于工程启动文件的选择,可以根据stm32型号选择,<br />
+<img src="/img/stm32-1-5.png" alt="型号" /><br />
+对应型号选择对应启动文件就行了<br />
+接下来是对工程项目内文件的说明<br />
+<img src="stm32-1-6.png" alt="架构" /><br />
+首先单片机在上电复位或者复位之后,会先启动<code>startup_xx.s</code>文件,先进行复位中断,调用<code>SystemInit</code>函数对单片机进行初始化,随后就执行<code>main</code>函数,然后就是其他中断,最后程序停止运行,当然嵌入式程序是不会停止的,这也是<code>main</code>函数内要写个死循环的原因之一,在写中断的时候,可以在官方的<code>stm32f10x_it.c</code>文件内写入中断,当然这是官方推荐的,我们还是习惯在哪里用中断就在哪里写,后续我们也可以写自己的文件用来包装函数,实现程序模块化,更利于维护.</p>
+<h2 id="鸣谢"><a class="markdownIt-Anchor" href="#鸣谢"></a> 鸣谢</h2>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1th411z7sn/?p=4&amp;spm_id_from=333.1007.top_right_bar_window_history.content.click&amp;vd_source=00f6ac79cc70103e7153c0276f8bd90c">BiliBili:江协科技在B站上stm32单片机教程</a></p>
+
+    </div>
+    <footer class="article-footer">
+        <a class="article-category-link" href="/categories/stm32/" title="stm32" data-aos="zoom-in">stm32</a>
+
+      
+    </footer>
+  </div>
+    <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
+    <div class="article-nav-link-wrap right">
+        <img data-src="/img/default_header.png" data-sizes="auto" alt="stm32-软件认识" class="lazyload">
+      <a href="/2026/11/14/stm32-%E8%BD%AF%E4%BB%B6%E8%AE%A4%E8%AF%86/" aria-label="后一篇: stm32-软件认识"  title="后一篇: stm32-软件认识"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+          stm32-软件认识
+      </h3>
+    </div>
+  </nav>
+
+</article>
+
+
+</section>
+        </div>
+        <footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    <div>
+      <span class="icon-copyright"></span>
+        2026
+        <span class="footer-info-sep rotate"></span>
+      DimMetoer
+    </div>
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+      <div>
+        <span class="icon-brush"></span>
+        10.5k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        00:54
+      </div>
+      <div class="footer-beian">
+        <a target="_blank" rel="noopener nofollow noreferrer" href="https://beian.miit.gov.cn">粤ICP备2026159732号</a>
+      </div>
+      <div class="footer-beian">
+        <img style="object-fit: contain;margin-right: 2px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAAC4lBMVEUAAAD+/ODz6Kr//+PYrn3x167oxnyaaVzhs2ifaFXbrGLkvFnpyF7v2X/kwm3cp1nhsGfqw3rZqG3ntVzjrFPt3oDjvGnfr2fbnFGti3q0lH7ktoLep1zdqVPryXn9v1T4znr/74bnvGz034v+2I/ktoDz6ZLkwY/Dfz7buoftzYbq2IPr0pjs3bLv6KPRrnbKhFv79ND488n/+dDZr4Lx38f/+cH/95f42oL7/97s2Y3++uzw1rvTk3ABAW0AAHnqxl7ktV3/0ljksE7XPiDWHRfOAAJrdodyeIKUj4EAAIAABHfyy24GA2ftzWYAAGPpwWD/217syVuTeFrqvVnmuVnrwFfislP+xVLnwFHpuFDVkEbdmkXysETeoETpgj7ThT3XdTg5FDjdhTXWZTDaTCm7TCbSOSDUIRnJJxPQFg2Ej5kcPpdyhZSptJEACJFpfo4AG44XMInFvYfTvIejmYS9un7FrnwAEHp8enny2HjWwHjKtnhcX3jYzHeNhnfu2HWUjHX34nSsonPz5HLNwnHu1HD70m9WTm//723pym3x02ndtmn/0mbnxGa0o2ZeWWbwzWT8zGT/4mPqymLtwmJuYmLvymH/vmB5ZGC9kF4MAF3ru1zmu1zou1mnjVn4xFjYnli0mVi5i1jiqVfyyVbmtlbXkVNUOFPlvFLNrFKjfVLjwFHuvlBgHlDsuU9ONU9ODk7/2E02Gk3gpEzcpEzpsUvjqkralkqEaUr/tUnorkngjkf7n0bXikb6xERCJETemEPckUG1gD/ooD3Ulj3jkz3TZT3WjjzOeDqBWDr3pDnglTlMADnbbTf2gjbkbzaTYDZpAjbplzTtcTTEazPXXzOeXzDscS3MPi38jizJWSrVSCrrXynzfCjVdCjZRyjTQCbFUiTlYCPLPSHVNCHwXh7iRh7GPh3PLBr9LRTRDBG/ABG2ABCxDg7BDAvUAwv9KwrEGArTBAjZAAbJAAJ7jjdaAAAAPnRSTlMACEIarGn7+/n39fTw7Ozr5+bl5OTh4NvS0cvHxsbEw8G+vLqysaufnJiVk4yDfG9dXFpMSEFBNTApJyEcFLSeMvYAAAFySURBVBjTYsAHmFmlJFmZUYTMWDivn9q5mp3FGCHGOCvp4tXHN3qakxYzwrUqbAi+9zk91W1v3goVqKglx+YJtzIyXj7Iej/D/YCgFVjQvNFr/rMPT11fp3+9W2ZXbwESs5H39D78/Iuri4urm0udXaWiNVBQ/3Sp16LzbrePrtmTdaXVztNJFyioebk8f9r+tBcpief2TZ5pXxyrDhQUSvbJsUuLv/Pk2sMLx32Lqs6IAwUB4zq5K9f+7ceUR4nxr97YFUQkiAEFVeMmlRSeffcpMzP15qWKmvZwLaCg9KElvdne/v4b1832tfcIdNwuBxRkW7j8mE91sHv/qtoOj6lHYpx5gYJGK7dG318QuCki1qnTKTk6PIgJ5HpDnsiEE35znOdN7I7Z0cUHFmMwFXBwWBbmEDA9JC60rY8fIqjc1ODoGOIcEHVwS+hcvxY1SGhqc0ctXbtt/e6woMgponqwALU10JCVEBGWUdIxwR1hAKaOh2BwM3MwAAAAAElFTkSuQmCC" alt="">
+        <a target="_blank" rel="noopener nofollow noreferrer" href="https://beian.mps.gov.cn/#/query/webSearch?code=&lt;a href=&#34;https://beian.mps.gov.cn/#/query/webSearch?code=44011102485413&#34; rel=&#34;noreferrer&#34; target=&#34;_blank&#34;&gt;粤公网安备44011102485413号&lt;/a&gt;">粤公网安备44011102485413号</a>
+      </div>
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+  </div>
+</footer>
+
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap">
+        <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text"> 引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%AF%84%E5%AD%98%E5%99%A8%E7%82%B9%E7%81%AF"><span class="toc-number">2.</span> <span class="toc-text"> 通过寄存器点灯</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%B9%E7%81%AF"><span class="toc-number">2.1.</span> <span class="toc-text"> 点灯</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E5%88%86%E6%9E%90"><span class="toc-number">2.2.</span> <span class="toc-text"> 总结分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%BA%93%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text"> 通过库函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%B9%E7%81%AF-2"><span class="toc-number">3.1.</span> <span class="toc-text"> 点灯</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-number">4.</span> <span class="toc-text"> 补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%B8%A3%E8%B0%A2"><span class="toc-number">5.</span> <span class="toc-text"> 鸣谢</span></a></li></ol>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="DimMetoer" class="lazyload">
+  <div class="sidebar-author-name">DimMetoer</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">24</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">5</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">0</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+  </div>
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+</nav>
+
+    </div>
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png" loading="lazy" decoding="async" fetchpriority="low"/>
+        </div>
+      </div>
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+  
+<script src="/js/generator_search.js" defer></script>
+
+
+
+  <script>
+    var setupFirework = () => {
+      if (!false || !window.matchMedia('(max-width: 768px)').matches) {
+        window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["rgba(60, 248, 46)","rgba(188, 251, 184)","rgba(21, 255, 3)"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":1,"alpha":[0.2,0.5],"lineWidth":20}}]}'));
+      }
+    }
+  </script>
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js" integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8+pUoWX8n1rgq282T" crossorigin="anonymous" onload="setupFirework()" defer></script>
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+      
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "DimMetoer",
+          title: "stm32-点亮单片机",
+          url: "http://example.com/2026/11/16/stm32-%E7%82%B9%E4%BA%AE%E5%8D%95%E7%89%87%E6%9C%BA/",
+          excerpt: "通过C语言点亮单片机",
+          description: "",
+          stripContent: " 引言 拿到单片机(stm32F10x),安装好相关驱动程序之后(本网站若无说明,此后以STLink驱动单片机),首先要做的就是点亮单片机,就像每个程序员第一扇门&amp;quot;HelloWorld&amp;quot; 点亮单片机,其实就是给单片机传达&amp;quot;点灯&amp;quot;这一指令,有多种方式,但最根本的就是修改寄存器.  这是stlink和单片机引脚的连接图  通过寄存器点灯 以下代码均在main.c文件中实现↓ 首先最基础的代码↓ 123456789#include &amp;quot;stm32f10x",
+          date: "Mon Nov 16 2026 18:30:30 GMT+0800",
+          updated: "Mon Nov 16 2026 20:01:09 GMT+0800",
+          cover: "/img/default_header.png",
+        };
+      </script>
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+      
+<script src="/js/tabs.js" data-pjax defer></script>
+
+      <script type="module" data-pjax>
+        (async () => {
+          const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+          const initPswp = (gallery, children) => {
+            if (_$$(`${gallery} ${children}`).length > 0) {
+              new PhotoSwipeLightbox({
+                gallery,
+                children,
+                pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+              }).init();
+            }
+          }
+          const pswp = () => {
+            initPswp('.article-entry', 'a.article-gallery-item');
+            initPswp('.article-gallery', 'a.article-gallery-item');
+          }
+          pswp();
+        })();
+      </script>
+        
+
+
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.12.6' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+    
+<script src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6&#x2F;1Nxveei" crossorigin="anonymous" defer data-pjax></script>
+
+    <script data-pjax>
+      window.MathJax = {"tex":{"tags":"ams","useLabelIds":true,"inlineMath":[["$","$"],["\\\\(","\\\\)"]],"displayMath":[["$$","$$"],["\\\\[","\\\\]"]],"processEscapes":true,"processEnvironments":true,"autoload":{"color":[],"colorv2":["color"]},"packages":{"[+]":["noerrors"]}},"options":{"skipHtmlTags":["script","noscript","style","textarea","pre","code"],"ignoreHtmlClass":"tex2jax_ignore","processHtmlClass":"tex2jax_process"},"loader":{"load":["input/asciimath","[tex]/noerrors"]}};
+    </script>
+
+
+
+  </body>
+  </html>

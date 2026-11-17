@@ -1,0 +1,599 @@
+  <!DOCTYPE html>
+  <html lang="zh-CN"  data-theme-mode="auto">
+  <head>
+  <meta charset="utf-8">
+  
+  
+  
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_ex15nbittbh';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'http://example.com';window.REIMU_CONFIG.relative = '/';window.REIMU_CONFIG.dark_mode = {"button":true,"mode":"auto"};</script>
+  <title>
+    stm32-位架构详解 | DimMetoer的个人博客
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media='all'">
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_ex15nbittbh.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="GPIO详解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="stm32-位架构详解">
+<meta property="og:url" content="http://example.com/2026/11/17/stm32-%E4%BD%8D%E6%9E%B6%E6%9E%84%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="DimMetoer的个人博客">
+<meta property="og:description" content="GPIO详解">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/stm32-2-1.png">
+<meta property="og:image" content="http://example.com/img/stm32-2-2.png">
+<meta property="og:image" content="http://example.com/img/stm32-2-3.png">
+<meta property="og:image" content="http://example.com/img/stm32-2-4.png">
+<meta property="og:image" content="http://example.com/img/stm32-2-5.png">
+<meta property="og:image" content="http://example.com/img/stm32-2-6.png">
+<meta property="og:image" content="http://example.com/img/stm32-2-7.png">
+<meta property="article:published_time" content="2026-11-17T14:07:17.000Z">
+<meta property="article:modified_time" content="2026-11-17T15:15:04.778Z">
+<meta property="article:author" content="DimMetoer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/stm32-2-1.png">
+    <link rel="alternate" href="/atom.xml" title="DimMetoer的个人博客" type="application/atom+xml">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx/1oA/0l8ysE" crossorigin="anonymous">
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.3/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+  <body>
+      <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script>
+<div id="copy-tooltip"></div>
+<div id="heatmap-tooltip"></div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation">
+        <a class="main-nav-link-wrap" href="/">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">首页</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/archives">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">归档</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/about">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">关于</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/friend">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">友链</span>
+        </a>
+    <a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation">
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" aria-label="RSS 订阅" target="_blank"></a>
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索" aria-label="搜索"></a>
+  </nav>
+</div>
+<header id="header" aria-label="Site header">
+    <picture></picture>
+    <img  fetchpriority="high" src="/img/default_header.png" alt="stm32-位架构详解">
+  <div id="header-outer">
+    <div id="header-title">
+          <span id="logo">
+            <h1 data-aos="slide-up">stm32-位架构详解</h1>
+          </span>
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+        </h2>
+    </div>
+  </div>
+</header>
+
+        <div id="content" aria-label="Page content" class="sidebar-left"  >
+          <aside id="sidebar" aria-label="Sidebar">
+  <div class="sidebar-wrapper-container sticky">
+  <div class="sidebar-wrapper">
+    <div class="sidebar-wrap" data-aos="fade-up">
+          <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#gpio%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text"> GPIO简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gpio%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text"> GPIO基本结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gpio%E4%BD%8D%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text"> GPIO位结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E4%BA%8C%E6%9E%81%E7%AE%A1"><span class="toc-number">3.1.</span> <span class="toc-text"> 保护二极管</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E9%83%A8%E5%88%86"><span class="toc-number">3.2.</span> <span class="toc-text"> 输入部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%8B%89%E7%94%B5%E9%98%BB"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 上&#x2F;下拉电阻</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%BD%E5%AF%86%E7%89%B9%E8%A7%A6%E5%8F%91%E5%99%A8%E8%82%96%E7%89%B9%E5%9F%BA%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 施密特触发器(肖特基触发器)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E8%BE%93%E5%85%A5%E5%92%8C%E5%A4%8D%E7%94%A8%E5%8A%9F%E8%83%BD%E8%BE%93%E5%85%A5"><span class="toc-number">3.2.3.</span> <span class="toc-text"> 模拟输入和复用功能输入</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E9%83%A8%E5%88%86"><span class="toc-number">3.3.</span> <span class="toc-text"> 输出部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mos%E7%AE%A1"><span class="toc-number">3.3.1.</span> <span class="toc-text"> MOS管</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E8%AE%BE%E7%BD%AE%E6%B8%85%E9%99%A4%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">3.3.2.</span> <span class="toc-text"> 位设置&#x2F;清除寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E7%94%A8%E5%8A%9F%E8%83%BD%E8%BE%93%E5%87%BA"><span class="toc-number">3.3.3.</span> <span class="toc-text"> 复用功能输出</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%B8%A3%E8%B0%A2"><span class="toc-number">4.</span> <span class="toc-text"> 鸣谢</span></a></li></ol>
+</div>
+</div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="DimMetoer" class="lazyload">
+  <div class="sidebar-author-name">DimMetoer</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">26</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">5</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">0</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+    </div>
+  </div>
+  <div class="sidebar-widget">
+  </div>
+  </div>
+</aside>
+
+          <section id="main" aria-label="Main content"><article id="post-stm32-位架构详解" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <span class="article-date-link icon-calendar" data-aos="zoom-in">
+    <time datetime="2026-11-17T14:07:17.000Z" itemprop="datePublished">2026-11-17</time>
+    <time style="display: none;" id="post-update-time">2026-11-17</time>
+  </span>
+</div>
+
+    </div>
+    
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+        <h2 id="gpio简介"><a class="markdownIt-Anchor" href="#gpio简介"></a> GPIO简介</h2>
+<p>GPIO（General Purpose Input Output）通用输入输出口<br />
+可配置为8种输入输出模式<br />
+引脚电平：0V~3.3V，部分引脚可容忍5V<br />
+输出模式下可控制端口输出高低电平，用以驱动LED、控制蜂鸣器、模拟通信协议输出时序等<br />
+输入模式下可读取端口的高低电平或电压，用于读取按键输入、外接模块电平信号输入、ADC电压采集、模拟通信协议接收数据等</p>
+<h2 id="gpio基本结构"><a class="markdownIt-Anchor" href="#gpio基本结构"></a> GPIO基本结构</h2>
+<p><img src="/img/stm32-2-1.png" alt="基本结构" /><br />
+外设APB2总线连通着多个GPIO口，以A，B，C…命名,stm32是64位的,而每个GPIO又有16个输入输出端,每个端每两位做一个调控,所以只用到了32位,剩余的32位(高位)保留,不做设计</p>
+<h2 id="gpio位结构"><a class="markdownIt-Anchor" href="#gpio位结构"></a> GPIO位结构</h2>
+<p><img src="/img/stm32-2-2.png" alt="位结构" /><br />
+以上是IO口的结构图</p>
+<h3 id="保护二极管"><a class="markdownIt-Anchor" href="#保护二极管"></a> 保护二极管</h3>
+<p>整个IO口分为上下(输入/输出)两个部分,从引脚出发,从右往左看,首先是有两个二极管,分别连着VDD和VSS,一个是高压(默认3.3V),一个是低压(0V),当流入引脚的电流电压高于3.3V时,VDD的二极管就会接通,将电流引至二极管,从而起到保护电路的作用;同理,当引脚流入负压时电流会从连通VSS的二极管流出,也起到了保护电路的作用,这样使得流入单片机的电流电压趋于0~3.3V.</p>
+<h3 id="输入部分"><a class="markdownIt-Anchor" href="#输入部分"></a> 输入部分</h3>
+<p>整个结构图的上半部分,就是输入部分.如图↓<br />
+<img src="/img/stm32-2-3.png" alt="输入部分" /></p>
+<h4 id="上下拉电阻"><a class="markdownIt-Anchor" href="#上下拉电阻"></a> 上/下拉电阻</h4>
+<p>如图示部分,即为 上/下拉电阻 .<br />
+<img src="/img/stm32-2-4.png" alt="上/下拉电阻" /><br />
+上拉电阻连着VDD,下拉电阻连着VSS,他们的状态分别为 都开、上开下关和上关下开<br />
+当全都打开时,两个电阻都不作用,此时的输入为<code>浮空输入</code>,在浮空输入状态下,外界输入的默认电压不确定,输入电平很容易受到外界的影响(如手指触碰),如果接入一个高阻值电阻,即可将这种影响降低到忽略不计.<br />
+所以可知,上下拉的电阻都是为了排除这种影响,而那个电阻发生作用将会影响输入电路的默认电压.<br />
+当上拉电阻开关闭合,下拉电阻打开时,此时上拉电阻发生作用,连通着高压的VDD,此时为<code>上拉输入</code>,输入电路的默认电平为高电平;<br />
+当上拉电阻开关打开,下拉电阻闭合时,此时下拉电阻发生作用,连通着低压的VSS,此时为<code>下拉输入</code>,输入电路的默认电平为低电平;<br />
+像这样为输入的默认电压赋予初值,能够最大程度的降低外界不稳定电压的影响.</p>
+<h4 id="施密特触发器肖特基触发器"><a class="markdownIt-Anchor" href="#施密特触发器肖特基触发器"></a> 施密特触发器(肖特基触发器)</h4>
+<p>电流通过上下拉电阻,往左流,遇到<code>肖特基触发器</code>,这是中文手册的翻译错误,在英文手册(官方)中的名称其实是施密特触发器,下文都称其为施密特触发器<br />
+外界输入的电压是波动图<br />
+而施密特触发器内置了两个阈值,一个是高压阈值,一个是低压阈值,当输入电压超过高压阈值或者低于低压阈值时,电压才会发生相应的高压/低压的改变.如下图↓<br />
+<img src="/img/stm32-2-5.png" alt="施密特触发器工作机制" /><br />
+蓝色曲线为现实中输入IO口的原始电压波动图,平行于X轴的蓝色虚线分别为两条阈值线,黄绿色线即为稳压后输入单片机的电压图.<br />
+我们可知,有了这个施密特触发器,我们就能很轻易的读取到外部输入的电压,而不至于波动幅度很大.<br />
+再往左就是寄存器了</p>
+<h4 id="模拟输入和复用功能输入"><a class="markdownIt-Anchor" href="#模拟输入和复用功能输入"></a> 模拟输入和复用功能输入</h4>
+<p>再看施密特触发器上部的两个输入,分别对应两种输入模式,区别在于接入电路的位置不同,一个在触发器之前,一个在触发器之后,<br />
+模拟输入需要输入模拟数据,也就是现实中的电压图,他通常在ADC功能下启用,复用功能输入则是向其他的模块输入电压,所以需要经过稳压</p>
+<h3 id="输出部分"><a class="markdownIt-Anchor" href="#输出部分"></a> 输出部分</h3>
+<p>整个结构图的下半部分,就是输出部分.如图↓<br />
+<img src="/img/stm32-2-6.png" alt="输出部分" /></p>
+<h4 id="mos管"><a class="markdownIt-Anchor" href="#mos管"></a> MOS管</h4>
+<p>从右往左看,第一个电子元件就是P-MOS管和N-MOS管,他们不同的开启/关闭状态组合分别对应<code>推挽输出</code>、<code>开漏输出</code>、<code>关闭输出</code>.<br />
+MOS管其实就是一个电子元件,相当于开关.依旧有连通VDD和VSS的区别,分别代表着高压与低压.<br />
+当两个管都进入工作状态时,即推挽输出,当单片机向外输出电压时,无论输出的是高电平还是低电平,都能准确的输出<br />
+当只有N-MOS管工作时,此时调控高压输出的P-MOS不工作,即<code>开漏输出</code>,如果输出高电平,则不输出,如果输出低电平,则输出低电平<br />
+这个输出模式的作用主要是能在外部电路连通一个提压电路,如下图↓<br />
+<img src="/img/stm32-2-7.png" alt="开漏输出" /><br />
+当不输出电压时,默认为提压电路的电压,当输出低电压时,输出低电压.</p>
+<h4 id="位设置清除寄存器"><a class="markdownIt-Anchor" href="#位设置清除寄存器"></a> 位设置/清除寄存器</h4>
+<p>再往左看,就是单片机的寄存器,然后就是位设置/清除寄存器<br />
+如果没有这个位设置/清除寄存器,当我们需要对特定的位进行修改时<br />
+我们需要先读取寄存器内原数据,再用位运算处理数据,再将新数据传入寄存器,再输出电压<br />
+可见这个步骤是繁琐的<br />
+而这个位设置/清除寄存器的工作机制是<br />
+先自己录入一段数据,当我们需要修改特定位时直接修改(如果是设置,对位赋值为1,其他为0时,其他位保持原设置,为1的位取1/如果是清除,对位赋值为1,其他为0时,其他位保持原设置,为1的位取0),然后再传入寄存器,再输出电压.<br />
+可见这个步骤是简易的</p>
+<h4 id="复用功能输出"><a class="markdownIt-Anchor" href="#复用功能输出"></a> 复用功能输出</h4>
+<p>最后就是可以通过其他外设通过IO口进行电压输出了.</p>
+<h2 id="鸣谢"><a class="markdownIt-Anchor" href="#鸣谢"></a> 鸣谢</h2>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1th411z7sn/?spm_id_from=333.788.videopod.episodes&amp;vd_source=00f6ac79cc70103e7153c0276f8bd90c&amp;p=5">BiliBili:江协科技在B站上stm32单片机教程</a><br />
+<a target="_blank" rel="noopener" href="https://www.doubao.com/chat/">豆包AI</a><br />
+<a target="_blank" rel="noopener" href="https://www.st.com/resource/en/programming_manual/cd00228163-stm32f10xxx-20xxx-21xxx-l1xxxx-cortex-m3-programming-manual-stmicroelectronics.pdf">stm32f10x操作手册</a></p>
+
+    </div>
+    <footer class="article-footer">
+        <a class="article-category-link" href="/categories/stm32/" title="stm32" data-aos="zoom-in">stm32</a>
+
+      
+    </footer>
+  </div>
+    <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
+      <div class="article-nav-link-wrap left">
+          <img data-src="/img/default_header.png" data-sizes="auto" alt="stm32-LED灯流水线" class="lazyload">
+        <a href="/2026/11/17/stm32-LED%E7%81%AF%E6%B5%81%E6%B0%B4%E7%BA%BF/" aria-label="前一篇: stm32-LED灯流水线" title="前一篇: stm32-LED灯流水线"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+            stm32-LED灯流水线
+        </h3>
+      </div>
+    <div class="article-nav-link-wrap right">
+        <img data-src="/img/default_header.png" data-sizes="auto" alt="stm32-点亮单片机" class="lazyload">
+      <a href="/2026/11/16/stm32-%E7%82%B9%E4%BA%AE%E5%8D%95%E7%89%87%E6%9C%BA/" aria-label="后一篇: stm32-点亮单片机"  title="后一篇: stm32-点亮单片机"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+          stm32-点亮单片机
+      </h3>
+    </div>
+  </nav>
+
+</article>
+
+
+</section>
+        </div>
+        <footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    <div>
+      <span class="icon-copyright"></span>
+        2026
+        <span class="footer-info-sep rotate"></span>
+      DimMetoer
+    </div>
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+      <div>
+        <span class="icon-brush"></span>
+        12.7k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        01:02
+      </div>
+      <div class="footer-beian">
+        <a target="_blank" rel="noopener nofollow noreferrer" href="https://beian.miit.gov.cn">粤ICP备2026159732号</a>
+      </div>
+      <div class="footer-beian">
+        <img style="object-fit: contain;margin-right: 2px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAMAAAD3n0w0AAAC4lBMVEUAAAD+/ODz6Kr//+PYrn3x167oxnyaaVzhs2ifaFXbrGLkvFnpyF7v2X/kwm3cp1nhsGfqw3rZqG3ntVzjrFPt3oDjvGnfr2fbnFGti3q0lH7ktoLep1zdqVPryXn9v1T4znr/74bnvGz034v+2I/ktoDz6ZLkwY/Dfz7buoftzYbq2IPr0pjs3bLv6KPRrnbKhFv79ND488n/+dDZr4Lx38f/+cH/95f42oL7/97s2Y3++uzw1rvTk3ABAW0AAHnqxl7ktV3/0ljksE7XPiDWHRfOAAJrdodyeIKUj4EAAIAABHfyy24GA2ftzWYAAGPpwWD/217syVuTeFrqvVnmuVnrwFfislP+xVLnwFHpuFDVkEbdmkXysETeoETpgj7ThT3XdTg5FDjdhTXWZTDaTCm7TCbSOSDUIRnJJxPQFg2Ej5kcPpdyhZSptJEACJFpfo4AG44XMInFvYfTvIejmYS9un7FrnwAEHp8enny2HjWwHjKtnhcX3jYzHeNhnfu2HWUjHX34nSsonPz5HLNwnHu1HD70m9WTm//723pym3x02ndtmn/0mbnxGa0o2ZeWWbwzWT8zGT/4mPqymLtwmJuYmLvymH/vmB5ZGC9kF4MAF3ru1zmu1zou1mnjVn4xFjYnli0mVi5i1jiqVfyyVbmtlbXkVNUOFPlvFLNrFKjfVLjwFHuvlBgHlDsuU9ONU9ODk7/2E02Gk3gpEzcpEzpsUvjqkralkqEaUr/tUnorkngjkf7n0bXikb6xERCJETemEPckUG1gD/ooD3Ulj3jkz3TZT3WjjzOeDqBWDr3pDnglTlMADnbbTf2gjbkbzaTYDZpAjbplzTtcTTEazPXXzOeXzDscS3MPi38jizJWSrVSCrrXynzfCjVdCjZRyjTQCbFUiTlYCPLPSHVNCHwXh7iRh7GPh3PLBr9LRTRDBG/ABG2ABCxDg7BDAvUAwv9KwrEGArTBAjZAAbJAAJ7jjdaAAAAPnRSTlMACEIarGn7+/n39fTw7Ozr5+bl5OTh4NvS0cvHxsbEw8G+vLqysaufnJiVk4yDfG9dXFpMSEFBNTApJyEcFLSeMvYAAAFySURBVBjTYsAHmFmlJFmZUYTMWDivn9q5mp3FGCHGOCvp4tXHN3qakxYzwrUqbAi+9zk91W1v3goVqKglx+YJtzIyXj7Iej/D/YCgFVjQvNFr/rMPT11fp3+9W2ZXbwESs5H39D78/Iuri4urm0udXaWiNVBQ/3Sp16LzbrePrtmTdaXVztNJFyioebk8f9r+tBcpief2TZ5pXxyrDhQUSvbJsUuLv/Pk2sMLx32Lqs6IAwUB4zq5K9f+7ceUR4nxr97YFUQkiAEFVeMmlRSeffcpMzP15qWKmvZwLaCg9KElvdne/v4b1832tfcIdNwuBxRkW7j8mE91sHv/qtoOj6lHYpx5gYJGK7dG318QuCki1qnTKTk6PIgJ5HpDnsiEE35znOdN7I7Z0cUHFmMwFXBwWBbmEDA9JC60rY8fIqjc1ODoGOIcEHVwS+hcvxY1SGhqc0ctXbtt/e6woMgponqwALU10JCVEBGWUdIxwR1hAKaOh2BwM3MwAAAAAElFTkSuQmCC" alt="">
+        <a target="_blank" rel="noopener nofollow noreferrer" href="https://beian.mps.gov.cn/#/query/webSearch?code=&lt;a href=&#34;https://beian.mps.gov.cn/#/query/webSearch?code=44011102485413&#34; rel=&#34;noreferrer&#34; target=&#34;_blank&#34;&gt;粤公网安备44011102485413号&lt;/a&gt;">粤公网安备44011102485413号</a>
+      </div>
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+  </div>
+</footer>
+
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap">
+        <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#gpio%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text"> GPIO简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gpio%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text"> GPIO基本结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gpio%E4%BD%8D%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text"> GPIO位结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E4%BA%8C%E6%9E%81%E7%AE%A1"><span class="toc-number">3.1.</span> <span class="toc-text"> 保护二极管</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E9%83%A8%E5%88%86"><span class="toc-number">3.2.</span> <span class="toc-text"> 输入部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%8B%89%E7%94%B5%E9%98%BB"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 上&#x2F;下拉电阻</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%BD%E5%AF%86%E7%89%B9%E8%A7%A6%E5%8F%91%E5%99%A8%E8%82%96%E7%89%B9%E5%9F%BA%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 施密特触发器(肖特基触发器)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E8%BE%93%E5%85%A5%E5%92%8C%E5%A4%8D%E7%94%A8%E5%8A%9F%E8%83%BD%E8%BE%93%E5%85%A5"><span class="toc-number">3.2.3.</span> <span class="toc-text"> 模拟输入和复用功能输入</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E9%83%A8%E5%88%86"><span class="toc-number">3.3.</span> <span class="toc-text"> 输出部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mos%E7%AE%A1"><span class="toc-number">3.3.1.</span> <span class="toc-text"> MOS管</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E8%AE%BE%E7%BD%AE%E6%B8%85%E9%99%A4%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">3.3.2.</span> <span class="toc-text"> 位设置&#x2F;清除寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E7%94%A8%E5%8A%9F%E8%83%BD%E8%BE%93%E5%87%BA"><span class="toc-number">3.3.3.</span> <span class="toc-text"> 复用功能输出</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%B8%A3%E8%B0%A2"><span class="toc-number">4.</span> <span class="toc-text"> 鸣谢</span></a></li></ol>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="DimMetoer" class="lazyload">
+  <div class="sidebar-author-name">DimMetoer</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">26</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">5</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">0</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+  </div>
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+</nav>
+
+    </div>
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png" loading="lazy" decoding="async" fetchpriority="low"/>
+        </div>
+      </div>
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+  
+<script src="/js/generator_search.js" defer></script>
+
+
+
+  <script>
+    var setupFirework = () => {
+      if (!false || !window.matchMedia('(max-width: 768px)').matches) {
+        window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["rgba(60, 248, 46)","rgba(188, 251, 184)","rgba(21, 255, 3)"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":1,"alpha":[0.2,0.5],"lineWidth":20}}]}'));
+      }
+    }
+  </script>
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js" integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8+pUoWX8n1rgq282T" crossorigin="anonymous" onload="setupFirework()" defer></script>
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+      
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "DimMetoer",
+          title: "stm32-位架构详解",
+          url: "http://example.com/2026/11/17/stm32-%E4%BD%8D%E6%9E%B6%E6%9E%84%E8%AF%A6%E8%A7%A3/",
+          excerpt: "GPIO详解",
+          description: "",
+          stripContent: " GPIO简介 GPIO（General Purpose Input Output）通用输入输出口 可配置为8种输入输出模式 引脚电平：0V~3.3V，部分引脚可容忍5V 输出模式下可控制端口输出高低电平，用以驱动LED、控制蜂鸣器、模拟通信协议输出时序等 输入模式下可读取端口的高低电平或电压，用于读取按键输入、外接模块电平信号输入、ADC电压采集、模拟通信协议接收数据等  GPIO基本结构  外设APB2总线连通着多个GPIO口，以A，B，C…命名,stm32是64位的,而每个GPIO又有16",
+          date: "Tue Nov 17 2026 22:07:17 GMT+0800",
+          updated: "Tue Nov 17 2026 23:15:04 GMT+0800",
+          cover: "/img/default_header.png",
+        };
+      </script>
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+      
+<script src="/js/tabs.js" data-pjax defer></script>
+
+      <script type="module" data-pjax>
+        (async () => {
+          const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+          const initPswp = (gallery, children) => {
+            if (_$$(`${gallery} ${children}`).length > 0) {
+              new PhotoSwipeLightbox({
+                gallery,
+                children,
+                pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+              }).init();
+            }
+          }
+          const pswp = () => {
+            initPswp('.article-entry', 'a.article-gallery-item');
+            initPswp('.article-gallery', 'a.article-gallery-item');
+          }
+          pswp();
+        })();
+      </script>
+        
+
+
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.12.6' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+    
+<script src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6&#x2F;1Nxveei" crossorigin="anonymous" defer data-pjax></script>
+
+    <script data-pjax>
+      window.MathJax = {"tex":{"tags":"ams","useLabelIds":true,"inlineMath":[["$","$"],["\\\\(","\\\\)"]],"displayMath":[["$$","$$"],["\\\\[","\\\\]"]],"processEscapes":true,"processEnvironments":true,"autoload":{"color":[],"colorv2":["color"]},"packages":{"[+]":["noerrors"]}},"options":{"skipHtmlTags":["script","noscript","style","textarea","pre","code"],"ignoreHtmlClass":"tex2jax_ignore","processHtmlClass":"tex2jax_process"},"loader":{"load":["input/asciimath","[tex]/noerrors"]}};
+    </script>
+
+
+
+  </body>
+  </html>

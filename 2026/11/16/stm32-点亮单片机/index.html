@@ -27,9 +27,9 @@
 <meta property="og:image" content="http://example.com/img/stm32-1-3.png">
 <meta property="og:image" content="http://example.com/img/stm32-1-4.png">
 <meta property="og:image" content="http://example.com/img/stm32-1-5.png">
-<meta property="og:image" content="http://example.com/2026/11/16/stm32-%E7%82%B9%E4%BA%AE%E5%8D%95%E7%89%87%E6%9C%BA/stm32-1-6.png">
+<meta property="og:image" content="http://example.com/img/stm32-1-6.png">
 <meta property="article:published_time" content="2026-11-16T10:30:30.000Z">
-<meta property="article:modified_time" content="2026-11-16T12:01:09.699Z">
+<meta property="article:modified_time" content="2026-11-17T15:14:19.384Z">
 <meta property="article:author" content="DimMetoer">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/img/stm32-1-1.png">
@@ -161,7 +161,7 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">24</div>
+    <div class="sidebar-state-number">26</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -222,7 +222,7 @@
       <div class="article-date">
   <span class="article-date-link icon-calendar" data-aos="zoom-in">
     <time datetime="2026-11-16T10:30:30.000Z" itemprop="datePublished">2026-11-16</time>
-    <time style="display: none;" id="post-update-time">2026-11-16</time>
+    <time style="display: none;" id="post-update-time">2026-11-17</time>
   </span>
 </div>
 
@@ -290,7 +290,7 @@ GPIO都是APB2的外设,对IOPCEN配置成1,其他配置成0,讲二进制转换�
 <img src="/img/stm32-1-5.png" alt="型号" /><br />
 对应型号选择对应启动文件就行了<br />
 接下来是对工程项目内文件的说明<br />
-<img src="stm32-1-6.png" alt="架构" /><br />
+<img src="/img/stm32-1-6.png" alt="架构" /><br />
 首先单片机在上电复位或者复位之后,会先启动<code>startup_xx.s</code>文件,先进行复位中断,调用<code>SystemInit</code>函数对单片机进行初始化,随后就执行<code>main</code>函数,然后就是其他中断,最后程序停止运行,当然嵌入式程序是不会停止的,这也是<code>main</code>函数内要写个死循环的原因之一,在写中断的时候,可以在官方的<code>stm32f10x_it.c</code>文件内写入中断,当然这是官方推荐的,我们还是习惯在哪里用中断就在哪里写,后续我们也可以写自己的文件用来包装函数,实现程序模块化,更利于维护.</p>
 <h2 id="鸣谢"><a class="markdownIt-Anchor" href="#鸣谢"></a> 鸣谢</h2>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1th411z7sn/?p=4&amp;spm_id_from=333.1007.top_right_bar_window_history.content.click&amp;vd_source=00f6ac79cc70103e7153c0276f8bd90c">BiliBili:江协科技在B站上stm32单片机教程</a></p>
@@ -303,6 +303,14 @@ GPIO都是APB2的外设,对IOPCEN配置成1,其他配置成0,讲二进制转换�
     </footer>
   </div>
     <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
+      <div class="article-nav-link-wrap left">
+          <img data-src="/img/default_header.png" data-sizes="auto" alt="stm32-位架构详解" class="lazyload">
+        <a href="/2026/11/17/stm32-%E4%BD%8D%E6%9E%B6%E6%9E%84%E8%AF%A6%E8%A7%A3/" aria-label="前一篇: stm32-位架构详解" title="前一篇: stm32-位架构详解"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+            stm32-位架构详解
+        </h3>
+      </div>
     <div class="article-nav-link-wrap right">
         <img data-src="/img/default_header.png" data-sizes="auto" alt="stm32-软件认识" class="lazyload">
       <a href="/2026/11/14/stm32-%E8%BD%AF%E4%BB%B6%E8%AE%A4%E8%AF%86/" aria-label="后一篇: stm32-软件认识"  title="后一篇: stm32-软件认识"></a>
@@ -335,10 +343,10 @@ GPIO都是APB2的外设,对IOPCEN配置成1,其他配置成0,讲二进制转换�
       </div>
       <div>
         <span class="icon-brush"></span>
-        10.5k
+        12.7k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:54
+        01:02
       </div>
       <div class="footer-beian">
         <a target="_blank" rel="noopener nofollow noreferrer" href="https://beian.miit.gov.cn">粤ICP备2026159732号</a>
@@ -378,7 +386,7 @@ GPIO都是APB2的外设,对IOPCEN配置成1,其他配置成0,讲二进制转换�
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">24</div>
+    <div class="sidebar-state-number">26</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -513,7 +521,7 @@ GPIO都是APB2的外设,对IOPCEN配置成1,其他配置成0,讲二进制转换�
           description: "",
           stripContent: " 引言 拿到单片机(stm32F10x),安装好相关驱动程序之后(本网站若无说明,此后以STLink驱动单片机),首先要做的就是点亮单片机,就像每个程序员第一扇门&amp;quot;HelloWorld&amp;quot; 点亮单片机,其实就是给单片机传达&amp;quot;点灯&amp;quot;这一指令,有多种方式,但最根本的就是修改寄存器.  这是stlink和单片机引脚的连接图  通过寄存器点灯 以下代码均在main.c文件中实现↓ 首先最基础的代码↓ 123456789#include &amp;quot;stm32f10x",
           date: "Mon Nov 16 2026 18:30:30 GMT+0800",
-          updated: "Mon Nov 16 2026 20:01:09 GMT+0800",
+          updated: "Tue Nov 17 2026 23:14:19 GMT+0800",
           cover: "/img/default_header.png",
         };
       </script>
